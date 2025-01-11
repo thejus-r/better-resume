@@ -38,11 +38,11 @@ function MyDocument() {
     <Document>
       <Page size={"A4"} style={styles.page}>
         {section.map((sec) => (
-          <View style={styles.section}>
+          <View key={sec.title} style={styles.section}>
             <Text>{sec.title}</Text>
             <Text style={styles.desc}>{sec.desc}</Text>
-            {sec.list.map((one) => (
-              <Text>{one}</Text>
+            {sec.list.map((one, idx) => (
+              <Text key={idx}>{one}</Text>
             ))}
           </View>
         ))}
