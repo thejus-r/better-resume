@@ -13,8 +13,13 @@ import {
   formSchema,
   type FormSchema,
 } from "../lib/formSchema";
+import type { SetStateAction } from "react";
 
-export default function DetailsForm() {
+type DetailsFormProps = {
+  updateData: React.Dispatch<SetStateAction<FormSchema>>;
+};
+
+export default function DetailsForm({ updateData }: DetailsFormProps) {
   const {
     register,
     handleSubmit,
@@ -33,7 +38,7 @@ export default function DetailsForm() {
   const hasWorkExperience = useWatch({ control, name: "hasWorkExperience" });
 
   const onSubmit: SubmitHandler<FormSchema> = (data) => {
-    alert(JSON.stringify(data, null, 2));
+    updateData(data);
   };
 
   return (

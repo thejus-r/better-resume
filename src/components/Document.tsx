@@ -1,13 +1,13 @@
 import { Page, Text, View, Document, StyleSheet } from "@react-pdf/renderer";
+import type { FormSchema } from "../lib/formSchema";
 
 const styles = StyleSheet.create({
   page: {
+    padding: 24,
     flexDirection: "column",
     backgroundColor: "#ffffff",
-    margin: 16,
-    padding: 16,
   },
-  title: {
+  personName: {
     fontSize: 24,
     textAlign: "center",
   },
@@ -21,31 +21,11 @@ const styles = StyleSheet.create({
   },
 });
 
-const section = [
-  {
-    title: "Skills",
-    desc: "historia de mis famosos hechos, que el sabio que los escribiere no ponga, cuando llegue a contar esta mi primera salida tan de mañana, desta manera?: Apenas había el rubicundo Apolo tendido p",
-    list: ["React", "Typescript"],
-  },
-  {
-    title: "Projects",
-    desc: "historia de mis famosos hechos, que el sabio que los escribiere no ponga, cuando llegue a contar esta mi primera salida tan de mañana, desta manera?: Apenas había el rubicundo Apolo tendido p",
-    list: ["Better Resume", "Tiny-Ledger", "Tic-Tac-Toe"],
-  },
-];
 function MyDocument() {
   return (
     <Document>
       <Page size={"A4"} style={styles.page}>
-        {section.map((sec) => (
-          <View key={sec.title} style={styles.section}>
-            <Text>{sec.title}</Text>
-            <Text style={styles.desc}>{sec.desc}</Text>
-            {sec.list.map((one, idx) => (
-              <Text key={idx}>{one}</Text>
-            ))}
-          </View>
-        ))}
+        <Text style={styles.personName}>Thejus Rajendran</Text>
       </Page>
     </Document>
   );
