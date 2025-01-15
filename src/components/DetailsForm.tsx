@@ -1,12 +1,19 @@
 import { Button } from "./Button";
 import { Input } from "./Input";
-import { useForm, useWatch, type FieldErrors } from "react-hook-form";
+import {
+  useFieldArray,
+  useForm,
+  useWatch,
+  type FieldErrors,
+  type SubmitHandler,
+} from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
   formDefaultValues,
   formSchema,
   type FormSchema,
 } from "../lib/formSchema";
+import { useEffect } from "react";
 
 export default function DetailsForm() {
   const {
@@ -14,7 +21,7 @@ export default function DetailsForm() {
     handleSubmit,
     formState: { errors },
     control,
-  } = useForm({
+  } = useForm<FormSchema>({
     mode: "all",
     resolver: zodResolver(formSchema),
     defaultValues: formDefaultValues,
@@ -25,15 +32,25 @@ export default function DetailsForm() {
   > = errors;
 
   const hasWorkExperience = useWatch({ control, name: "hasWorkExperience" });
-  console.log(errors);
+  const hasSkills = useWatch({ control, name: "hasSkills" });
+
+  const { fields, replace, append, remove } = useFieldArray({
+    control,
+    name: "skills",
+  });
+
+  useEffect(() => {
+    if (hasSkills) {
+      replace([{ skill: "" }, { skill: "" }]);
+    }
+  }, [hasSkills, replace]);
+
+  const onSubmit: SubmitHandler<FormSchema> = (data) => {
+    alert(JSON.stringify(data, null, 2));
+  };
 
   return (
-    <form
-      onSubmit={handleSubmit((data) => {
-        console.log(data);
-      })}
-      className="flex w-7/12 flex-col p-6"
-    >
+    <form className="flex w-7/12 flex-col p-6">
       <div className="w-full flex-col gap-4">
         <div className="flex flex-col gap-1">
           <label>Your Name</label>
@@ -59,8 +76,28 @@ export default function DetailsForm() {
             <Input placeholder="Company" {...register("companyName")} />
           )}
         </div>
+        <div className="flex flex-col gap-1">
+          <label>Skills</label>
+          <input type="checkbox" {...register("hasSkills")}></input>
+          {hasSkills && (
+            <>
+              {fields.map((field, index) => (
+                <div key={field.id}>
+                  <Input
+                    placeholder="Skill"
+                    {...register(`skills.${index}.skill`)}
+                  />
+                  <button onClick={() => remove(index)}>Remove</button>
+                </div>
+              ))}
+              <Button onClick={() => append({ skill: "" })}>Add More</Button>
+            </>
+          )}
+        </div>
 
-        <Button type="submit">Generate</Button>
+        <Button type="submit" onClick={handleSubmit(onSubmit)}>
+          Generate
+        </Button>
       </div>
     </form>
   );
