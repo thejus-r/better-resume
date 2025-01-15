@@ -1,7 +1,7 @@
 import { Button } from "./Button";
 import { Input } from "./Input";
+import { Label } from "./Label";
 import {
-  useFieldArray,
   useForm,
   useWatch,
   type FieldErrors,
@@ -13,7 +13,6 @@ import {
   formSchema,
   type FormSchema,
 } from "../lib/formSchema";
-import { useEffect } from "react";
 
 export default function DetailsForm() {
   const {
@@ -32,18 +31,6 @@ export default function DetailsForm() {
   > = errors;
 
   const hasWorkExperience = useWatch({ control, name: "hasWorkExperience" });
-  const hasSkills = useWatch({ control, name: "hasSkills" });
-
-  const { fields, replace, append, remove } = useFieldArray({
-    control,
-    name: "skills",
-  });
-
-  useEffect(() => {
-    if (hasSkills) {
-      replace([{ skill: "" }, { skill: "" }]);
-    }
-  }, [hasSkills, replace]);
 
   const onSubmit: SubmitHandler<FormSchema> = (data) => {
     alert(JSON.stringify(data, null, 2));
@@ -51,9 +38,9 @@ export default function DetailsForm() {
 
   return (
     <form className="flex w-7/12 flex-col p-6">
-      <div className="w-full flex-col gap-4">
+      <div className="flex w-full flex-col gap-4">
         <div className="flex flex-col gap-1">
-          <label>Your Name</label>
+          <Label>Your Name</Label>
           <Input
             variant={!!allErrors.name?.message ? "error" : "default"}
             {...register("name")}
@@ -66,35 +53,21 @@ export default function DetailsForm() {
           )}
         </div>
         <div className="flex flex-col gap-1">
-          <label>Designation</label>
+          <Label>Designation</Label>
           <Input {...register("designation")} placeholder="Your Designation" />
         </div>
         <div className="flex flex-col gap-1">
-          <label>Has Work Experience</label>
-          <input type="checkbox" {...register("hasWorkExperience")}></input>
+          <div className="flex items-center gap-2 align-middle">
+            <input type="checkbox" {...register("hasWorkExperience")}></input>
+            <label>Has Work Experience</label>
+          </div>
           {hasWorkExperience && (
-            <Input placeholder="Company" {...register("companyName")} />
+            <div className="flex flex-col">
+              <Label>Company Name</Label>
+              <Input placeholder="Company" {...register("companyName")} />
+            </div>
           )}
         </div>
-        <div className="flex flex-col gap-1">
-          <label>Skills</label>
-          <input type="checkbox" {...register("hasSkills")}></input>
-          {hasSkills && (
-            <>
-              {fields.map((field, index) => (
-                <div key={field.id}>
-                  <Input
-                    placeholder="Skill"
-                    {...register(`skills.${index}.skill`)}
-                  />
-                  <button onClick={() => remove(index)}>Remove</button>
-                </div>
-              ))}
-              <Button onClick={() => append({ skill: "" })}>Add More</Button>
-            </>
-          )}
-        </div>
-
         <Button type="submit" onClick={handleSubmit(onSubmit)}>
           Generate
         </Button>
