@@ -1,0 +1,20 @@
+@font-face {
+  font-family: "WorkSans-Variable";
+  src: url("../fonts/WorkSans-Variable.woff2") format("woff2");
+  font-weight: 100 900;
+  font-display: swap;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "WorkSans-VariableItalic";
+  src: url("../fonts/WorkSans-VariableItalic.woff2") format("woff2");
+  font-weight: 100 900;
+  font-display: swap;
+  font-style: italic;
+}
+
+:root {
+  font-family: "WorkSans-Variable";
+  font-size: 16px;
+}

@@ -1,0 +1,11 @@
+@mixin peer($state: null) {
+  & + * {
+    @if $state {
+      &:#{$state} {
+        @content;
+      }
+    } @else {
+      @content;
+    }
+  }
+}
