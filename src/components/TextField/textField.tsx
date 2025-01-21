@@ -1,26 +1,63 @@
-import style from "./textfield.module.scss";
+import { cn } from "@lib/utils";
+import { ReactNode } from "react";
+import type { InputHTMLAttributes, LabelHTMLAttributes } from "react";
+import { cva, type VariantProps } from "class-variance-authority";
 
-const TextField: React.FC = ({}) => {
-  return (
-    <div className={style.field}>
-      <TextLabel>username of the world</TextLabel>
-      <input
-        className={style.field_input}
-        placeholder="Thejus Rajendran"
-      ></input>
-      <p className={style.field_helper}>Error Text</p>
-    </div>
-  );
+const TextField = ({ children }: { children: ReactNode }) => {
+  return <div className="relative my-4 flex w-full flex-col">{children}</div>;
 };
 
-export interface TextLabelProps
-  extends React.LabelHTMLAttributes<HTMLLabelElement> {}
+// Label Element
+const labelVariants = cva(
+  "absolute -top-2.5 left-2 w-fit bg-white px-1 font-mono text-xs lowercase",
+  {
+    variants: {
+      state: {
+        default: "text-gray-500 peer-focus:text-blue-500",
+        error: "text-red-500 peer-focus:text-red-500",
+        disabled: "text-gray-300 pointer-events-none",
+      },
+    },
+    defaultVariants: {
+      state: "default",
+    },
+  },
+);
 
-const TextLabel: React.FC<TextLabelProps> = ({ ...props }) => {
-  return <label {...props} className={style.field_label} />;
+interface LabelProps
+  extends LabelHTMLAttributes<HTMLLabelElement>,
+    VariantProps<typeof labelVariants> {}
+
+const Label: React.FC<LabelProps> = ({ className, state, ...props }) => {
+  return <label className={cn(labelVariants({ state }))} {...props} />;
+};
+
+// Input Element
+const inputVariants = cva(
+  "peer w-full border px-2 py-2 outline-none focus:outline-blue-500 disabled:border-gray-300 disabled:text-gray-300",
+  {
+    variants: {
+      state: {
+        default: " border-gray-300 focus:outline-blue-500",
+        error: "border-red-500 focus:text-red-500",
+        disabled: "pointer-events-none",
+      },
+    },
+    defaultVariants: {
+      state: "default",
+    },
+  },
+);
+interface InputProps
+  extends InputHTMLAttributes<HTMLInputElement>,
+    VariantProps<typeof inputVariants> {}
+const Input: React.FC<InputProps> = ({ className, state, ...props }) => {
+  return <input className={cn(inputVariants({ state }))} {...props} />;
 };
 
 const Root = TextField;
-const Label = TextLabel;
+TextField.Root = Root;
+TextField.Label = Label;
+TextField.Input = Input;
 
-export { Root, Label };
+export { TextField, Root, Label, Input };

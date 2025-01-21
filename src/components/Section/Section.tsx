@@ -4,6 +4,7 @@ import { CaretDown } from "@phosphor-icons/react";
 import * as motion from "motion/react-client";
 import { AnimatePresence } from "motion/react";
 import { useState } from "react";
+import { TextField } from "@components/TextField";
 
 function Section() {
   const [current, setCurrent] = useState<Array<string>>([]);
@@ -44,13 +45,23 @@ function Section() {
             <AnimatePresence>
               {isActive && (
                 <motion.div
-                  className="border border-gray-100"
                   initial={{ opacity: 0, height: 0 }}
                   animate={{ opacity: 1, height: "auto" }}
                   exit={{ opacity: 0, height: 0 }}
                 >
-                  <Accordian.Content forceMount className="p-4">
-                    <FakeCard />
+                  <Accordian.Content forceMount>
+                    <form className="flex h-48 gap-4 border border-solid border-gray-200 p-4">
+                      <TextField>
+                        <TextField.Input disabled placeholder="Thejus" />
+                        <TextField.Label state={"disabled"}>
+                          First Name
+                        </TextField.Label>
+                      </TextField>
+                      <TextField>
+                        <TextField.Input placeholder="Rajendran" />
+                        <TextField.Label>Last Name</TextField.Label>
+                      </TextField>
+                    </form>
                   </Accordian.Content>
                 </motion.div>
               )}
@@ -61,23 +72,5 @@ function Section() {
     </Accordian.Root>
   );
 }
-
-const FakeCard = () => {
-  return (
-    <motion.div className="flex flex-col border border-gray-100 p-4">
-      <div className="flex items-center justify-between">
-        <h3 className="text-base">UI/UX Designer</h3>
-        <p className="font-mono text-gray-400">April 2023 - October 2024 </p>
-      </div>
-      <p className="text-gray-500">at Flooid LLP</p>
-      <p className="">
-        Supported the product team in understanding basic requirements for
-        portfolio management, analytics and risk Contributed to coding updates
-        and minor alterations under mentorship Assisted in resolving entry-level
-        problems with guidance, using cloud and web technologies
-      </p>
-    </motion.div>
-  );
-};
 
 export { Section };
