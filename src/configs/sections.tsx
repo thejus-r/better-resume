@@ -1,4 +1,11 @@
-import { SuitcaseSimple, User, GraduationCap } from "@phosphor-icons/react";
+import {
+  SuitcaseSimple,
+  User,
+  GraduationCap,
+  Shapes,
+  LightbulbFilament,
+  Medal,
+} from "@phosphor-icons/react";
 
 export const sectionsConfig = [
   {
@@ -12,5 +19,17 @@ export const sectionsConfig = [
   {
     name: "Education",
     icon: GraduationCap,
+  },
+  {
+    name: "Projects",
+    icon: Shapes,
+  },
+  {
+    name: "Skills",
+    icon: LightbulbFilament,
+  },
+  {
+    name: "Certifications",
+    icon: Medal,
   },
 ];
