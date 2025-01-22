@@ -8,7 +8,6 @@ import { TextField } from "@components/TextField";
 
 function Section() {
   const [current, setCurrent] = useState<Array<string>>([]);
-  console.log(current);
   return (
     <Accordian.Root
       onValueChange={(value) => setCurrent(value)}
@@ -50,12 +49,13 @@ function Section() {
                   exit={{ opacity: 0, height: 0 }}
                 >
                   <Accordian.Content forceMount>
-                    <form className="flex h-48 gap-4 border border-solid border-gray-200 p-4">
-                      <TextField fieldState="disabled">
+                    <form className="flex h-64 flex-col border border-solid border-gray-200 p-4 pt-2">
+                      <TextField fieldState="error">
                         <TextField.Input placeholder="Thejus" />
                         <TextField.Label>First Name</TextField.Label>
+                        <TextField.Helper helperText="This field is required!" />
                       </TextField>
-                      <TextField fieldState="disabled">
+                      <TextField fieldState="error">
                         <TextField.Input placeholder="Rajendran" />
                         <TextField.Label>Last Name</TextField.Label>
                       </TextField>
