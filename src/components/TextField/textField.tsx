@@ -8,6 +8,7 @@ import {
 } from "react";
 import type { InputHTMLAttributes, LabelHTMLAttributes } from "react";
 import { cva, type VariantProps } from "class-variance-authority";
+import * as RadixPopover from "@radix-ui/react-popover";
 
 type TextFieldState = "default" | "disabled" | "error";
 
@@ -41,14 +42,14 @@ const TextField = ({
 
   return (
     <TextFieldContext.Provider value={{ state, setState }}>
-      <div className="relative my-4 flex w-full flex-col">{children}</div>
+      <div className="relative flex w-full flex-col py-3">{children}</div>
     </TextFieldContext.Provider>
   );
 };
 
 // Label Element
 const labelVariants = cva(
-  "absolute -top-2.5 left-2 w-fit bg-white px-1 font-mono text-xs lowercase",
+  "absolute top-1.5 left-2 w-fit bg-white px-1 font-mono text-xs lowercase",
   {
     variants: {
       state: {
@@ -67,7 +68,8 @@ interface LabelProps
   extends LabelHTMLAttributes<HTMLLabelElement>,
     VariantProps<typeof labelVariants> {}
 
-const Label: React.FC<LabelProps> = ({ className, state, ...props }) => {
+const Label: React.FC<LabelProps> = ({ className, ...props }) => {
+  const { state } = useContext(TextFieldContext)!;
   return <label className={cn(labelVariants({ state }))} {...props} />;
 };
 
@@ -78,7 +80,7 @@ const inputVariants = cva(
     variants: {
       state: {
         default: " border-gray-300 focus:outline-blue-500",
-        error: "border-red-500 focus:text-red-500",
+        error: "border-red-500 ",
         disabled: "pointer-events-none",
       },
     },
@@ -87,6 +89,20 @@ const inputVariants = cva(
     },
   },
 );
+
+// Error Popup
+const ErrPopover = () => {
+  <RadixPopover.Root>
+    <RadixPopover.Trigger>
+      <RadixPopover.Anchor>
+        <RadixPopover.Portal>
+          <RadixPopover.Content>Error</RadixPopover.Content>
+        </RadixPopover.Portal>
+      </RadixPopover.Anchor>
+    </RadixPopover.Trigger>
+  </RadixPopover.Root>;
+};
+
 interface InputProps
   extends Omit<InputHTMLAttributes<HTMLInputElement>, "disabled">,
     VariantProps<typeof inputVariants> {}
