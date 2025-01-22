@@ -9,6 +9,7 @@ import {
 import type { InputHTMLAttributes, LabelHTMLAttributes } from "react";
 import { cva, type VariantProps } from "class-variance-authority";
 import * as RadixPopover from "@radix-ui/react-popover";
+import { Warning } from "@phosphor-icons/react";
 
 type TextFieldState = "default" | "disabled" | "error";
 
@@ -91,16 +92,27 @@ const inputVariants = cva(
 );
 
 // Error Popup
-const ErrPopover = () => {
-  <RadixPopover.Root>
-    <RadixPopover.Trigger>
-      <RadixPopover.Anchor>
-        <RadixPopover.Portal>
-          <RadixPopover.Content>Error</RadixPopover.Content>
-        </RadixPopover.Portal>
-      </RadixPopover.Anchor>
-    </RadixPopover.Trigger>
-  </RadixPopover.Root>;
+
+const helperVariants = cva("", {
+  variants: {
+    type: {
+      error: "",
+    },
+    defaultVariants: {
+      type: "error",
+    },
+  },
+});
+
+const Helper = ({ helperText }: { helperText: string }) => {
+  return (
+    <div className="w-fill flex items-center justify-start text-pretty bg-red-100 text-xs lowercase text-red-500">
+      <div className="flex h-full items-center justify-center bg-red-500 text-white">
+        <Warning size={14} className="m-1" />
+      </div>
+      <p className="px-2 py-1">{helperText}</p>
+    </div>
+  );
 };
 
 interface InputProps
@@ -123,5 +135,6 @@ const Root = TextField;
 TextField.Root = Root;
 TextField.Label = Label;
 TextField.Input = Input;
+TextField.Helper = Helper;
 
-export { TextField, Root, Label, Input };
+export { TextField, Root, Label, Input, Helper };

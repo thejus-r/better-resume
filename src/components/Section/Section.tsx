@@ -49,10 +49,11 @@ function Section() {
                   exit={{ opacity: 0, height: 0 }}
                 >
                   <Accordian.Content forceMount>
-                    <form className="flex h-64 flex-col border border-solid border-gray-200 p-4 pt-6">
+                    <form className="flex h-64 flex-col border border-solid border-gray-200 p-4 pt-2">
                       <TextField fieldState="error">
                         <TextField.Input placeholder="Thejus" />
                         <TextField.Label>First Name</TextField.Label>
+                        <TextField.Helper helperText="This field is required!" />
                       </TextField>
                       <TextField fieldState="error">
                         <TextField.Input placeholder="Rajendran" />
