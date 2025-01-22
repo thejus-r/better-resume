@@ -1,10 +1,49 @@
 import { cn } from "@lib/utils";
-import { ReactNode } from "react";
+import {
+  createContext,
+  ReactNode,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import type { InputHTMLAttributes, LabelHTMLAttributes } from "react";
 import { cva, type VariantProps } from "class-variance-authority";
 
-const TextField = ({ children }: { children: ReactNode }) => {
-  return <div className="relative my-4 flex w-full flex-col">{children}</div>;
+type TextFieldState = "default" | "disabled" | "error";
+
+type TextFieldContextType = {
+  state: TextFieldState;
+  setState: React.Dispatch<React.SetStateAction<TextFieldState>>;
+} | null;
+
+const TextFieldContext = createContext<TextFieldContextType>(null);
+
+TextFieldContext.displayName = "TEXT_FIELD_CONTEXT";
+
+const TextField = ({
+  children,
+  fieldState,
+}: {
+  children: ReactNode;
+  fieldState?: TextFieldState;
+}) => {
+  const [state, setState] = useState<TextFieldState>("default");
+
+  // Guard
+  if (fieldState == undefined) fieldState = "default";
+
+  useEffect(() => {
+    setState(fieldState);
+    return () => {
+      setState(fieldState);
+    };
+  }, [fieldState]);
+
+  return (
+    <TextFieldContext.Provider value={{ state, setState }}>
+      <div className="relative my-4 flex w-full flex-col">{children}</div>
+    </TextFieldContext.Provider>
+  );
 };
 
 // Label Element
@@ -49,10 +88,19 @@ const inputVariants = cva(
   },
 );
 interface InputProps
-  extends InputHTMLAttributes<HTMLInputElement>,
+  extends Omit<InputHTMLAttributes<HTMLInputElement>, "disabled">,
     VariantProps<typeof inputVariants> {}
-const Input: React.FC<InputProps> = ({ className, state, ...props }) => {
-  return <input className={cn(inputVariants({ state }))} {...props} />;
+const Input: React.FC<InputProps> = ({ className, ...props }) => {
+  const { state } = useContext(TextFieldContext)!;
+  const disabled = state == "disabled" ? true : false;
+
+  return (
+    <input
+      disabled={disabled}
+      className={cn(inputVariants({ state }))}
+      {...props}
+    />
+  );
 };
 
 const Root = TextField;

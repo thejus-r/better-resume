@@ -51,13 +51,11 @@ function Section() {
                 >
                   <Accordian.Content forceMount>
                     <form className="flex h-48 gap-4 border border-solid border-gray-200 p-4">
-                      <TextField>
-                        <TextField.Input disabled placeholder="Thejus" />
-                        <TextField.Label state={"disabled"}>
-                          First Name
-                        </TextField.Label>
+                      <TextField fieldState="disabled">
+                        <TextField.Input placeholder="Thejus" />
+                        <TextField.Label>First Name</TextField.Label>
                       </TextField>
-                      <TextField>
+                      <TextField fieldState="disabled">
                         <TextField.Input placeholder="Rajendran" />
                         <TextField.Label>Last Name</TextField.Label>
                       </TextField>
