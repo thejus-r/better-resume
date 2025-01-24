@@ -4,7 +4,6 @@ import { CaretDown } from "@phosphor-icons/react";
 import * as motion from "motion/react-client";
 import { AnimatePresence } from "motion/react";
 import { useState } from "react";
-import { TextField } from "@components/TextField";
 
 function Section() {
   const [current, setCurrent] = useState<Array<string>>([]);
@@ -17,6 +16,7 @@ function Section() {
       {sectionsConfig.map((section, index) => {
         const Icon = section.icon;
         const isActive = current.includes(section.name) ? true : false;
+        const Form = section.form;
         return (
           <Accordian.Item
             className="flex flex-col border border-gray-100"
@@ -49,17 +49,7 @@ function Section() {
                   exit={{ opacity: 0, height: 0 }}
                 >
                   <Accordian.Content forceMount>
-                    <form className="flex h-64 flex-col border border-solid border-gray-200 p-4 pt-2">
-                      <TextField fieldState="error">
-                        <TextField.Input placeholder="Thejus" />
-                        <TextField.Label>First Name</TextField.Label>
-                        <TextField.Helper helperText="This field is required!" />
-                      </TextField>
-                      <TextField fieldState="error">
-                        <TextField.Input placeholder="Rajendran" />
-                        <TextField.Label>Last Name</TextField.Label>
-                      </TextField>
-                    </form>
+                    <Form />
                   </Accordian.Content>
                 </motion.div>
               )}
