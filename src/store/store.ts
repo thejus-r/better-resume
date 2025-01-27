@@ -1,12 +1,22 @@
 import { create } from "zustand";
 
+type SectionType = "personal"
+
+type Sections = Map<SectionType, object>
+
 type ResumeDataStore =  {
-    count: number
+    sections: Sections,
+    updateSection: (section: SectionType, details: object) => void
 }
 
-const useResumeStore = create<ResumeDataStore>(() => ({
-    count: 1
+const useResumeStore = create<ResumeDataStore>((set) => ({
+    sections: new Map(),
+    updateSection: (section, details) => set((state) => {
+        return {
+            sections: state.sections.set(section, details)
+        }
+    }),
 }))
 
-
+export type { SectionType, Sections }
 export { useResumeStore }

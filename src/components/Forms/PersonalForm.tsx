@@ -1,7 +1,9 @@
 import { Input } from "@components/ui/Input";
 import { Label } from "@components/ui/Label";
 
-import { useForm, SubmitHandler } from "react-hook-form";
+import { useForm } from "react-hook-form";
+import { useResumeStore } from "../../store/store";
+import { useEffect } from "react";
 
 interface PersonalFormInput {
   name: string;
@@ -12,17 +14,18 @@ interface PersonalFormInput {
 }
 
 const PersonalForm = () => {
-  console.log("render test");
+  const { updateSection } = useResumeStore();
+  const { register, watch } = useForm<PersonalFormInput>();
 
-  const { register, handleSubmit } = useForm<PersonalFormInput>();
-  const onSubmit: SubmitHandler<PersonalFormInput> = (data) =>
-    console.log(data);
+  useEffect(() => {
+    const { unsubscribe } = watch((value) => {
+      updateSection("personal", value);
+    });
+    return () => unsubscribe();
+  }, [watch]);
 
   return (
-    <form
-      onSubmit={handleSubmit(onSubmit)}
-      className="flex flex-col gap-2 border border-solid border-gray-200 p-4"
-    >
+    <form className="flex flex-col gap-2 border border-solid border-gray-200 p-4">
       <div>
         <h3 className="text-lg font-medium">Personal Details</h3>
         <p className="text-sm text-gray-400">Fill your personal details here</p>
@@ -69,7 +72,6 @@ const PersonalForm = () => {
           />
         </div>
       </div>
-      <button type="submit">Submit</button>
     </form>
   );
 };
