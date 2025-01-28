@@ -5,21 +5,26 @@ import { useForm } from "react-hook-form";
 import { useResumeStore } from "../../store/store";
 import { useEffect } from "react";
 
-interface PersonalFormInput {
-  name: string;
-  designation: string;
-  place: string;
-  phone: string;
-  email: string;
-}
+import type { PersonalDetailsType } from "@lib/formSchema";
 
 const PersonalForm = () => {
   const { updateSection } = useResumeStore();
-  const { register, watch } = useForm<PersonalFormInput>();
+  const { register, watch } = useForm<PersonalDetailsType>({
+    defaultValues: {
+      designation: "",
+      email: "",
+      name: "",
+      phoneNumber: "",
+      place: "",
+    },
+  });
 
   useEffect(() => {
     const { unsubscribe } = watch((value) => {
-      updateSection("personal", value);
+      updateSection("personal", {
+        sectionName: "personal",
+        sectionDetails: value as PersonalDetailsType,
+      });
     });
     return () => unsubscribe();
   }, [watch]);
@@ -58,7 +63,7 @@ const PersonalForm = () => {
         <div className="w-full">
           <Label>Phone Number</Label>
           <Input
-            {...register("phone")}
+            {...register("phoneNumber")}
             type="input"
             placeholder="Eg: 93304 232 11"
           />

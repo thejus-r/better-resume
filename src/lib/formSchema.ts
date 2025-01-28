@@ -1,61 +1,40 @@
 import { z } from "zod";
 
-const currentCompanyDetails = z.object({
-  companyName: z.string(),
-  role: z.string(),
-  brief: z.string(),
-  fromDate: z.string(),
-});
+const Sections = z.enum(["personal", "work", "education"])
 
-const previousCompanyDetails = z.object({
-  companyName: z.string(),
-  role: z.string(),
-  brief: z.string(),
-  fromDate: z.string(),
-  toDate: z.string(),
-});
+// Schema for Personal Details
+const PersonalDetailsSchema = z.object({
+  name: z.string(),
+  designation: z.string(),
+  email: z.string(),
+  place: z.string(),
+  phoneNumber: z.string(),
+})
 
-const experienceSchema = z.discriminatedUnion("hasWorkExperience", [
+// Schema for Work Details
+// TODO: Option to add Current Company and Previous Experiences
+const WorkDetailsSchema = z.object({
+  company: z.string(),
+  role: z.string(),
+})
+
+const SectionSchema = z.discriminatedUnion("sectionName", [
   z.object({
-    hasWorkExperience: z.literal(true),
-    currentExperience: z.optional(currentCompanyDetails),
-    previousExperience: z.array(previousCompanyDetails),
+    sectionName: z.literal(Sections.Enum.personal),
+    sectionDetails: PersonalDetailsSchema
   }),
   z.object({
-    hasWorkExperience: z.literal(false)
-  })
-]);
+    sectionName: z.literal(Sections.Enum.work),
+    sectionDetails: WorkDetailsSchema
+  }), 
+])
+ 
+const FormSchema = z.map(Sections, SectionSchema)
 
-const formSchema = z
-  .object({
-    name: z.string(),
-    phone: z.string(),
-    designation: z.string(),
-  })
-  .and(experienceSchema);
+type PersonalDetailsType = z.infer<typeof PersonalDetailsSchema>
+type FormSchemaType = z.infer<typeof FormSchema>
+type SectionSchemaType = z.infer<typeof SectionSchema>
+type SectionsType = z.infer<typeof Sections>
 
-type FormSchema = z.infer<typeof formSchema>;
-
-const defaultValue: FormSchema = {
-  name: "",
-  phone: "",
-  designation: "",
-  hasWorkExperience: true,
-  currentExperience: {
-    companyName: "",
-    brief: "",
-    fromDate: "",
-    role: ""
-  },
-  previousExperience: [
-    {
-        companyName: "",
-        brief: "",
-        fromDate: "",
-        role: "",
-        toDate: ""
-    }
-  ]
-};
-
-export { formSchema, defaultValue, type FormSchema };
+export { FormSchema};
+export  type { FormSchemaType, SectionsType, SectionSchemaType, PersonalDetailsType}
