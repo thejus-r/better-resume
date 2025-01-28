@@ -1,13 +1,15 @@
 import Container from "@components/Container/container";
-import { Section } from "@components/Section";
+import { PersonalForm } from "@components/Forms/PersonalForm";
+import { ResumeViewer } from "@components/PDFViewer";
+
 function App() {
   return (
     <div className="flex h-screen w-full">
       <Container>
-        <Section />
+        <PersonalForm />
       </Container>
       <div className="flex h-full w-1/2 items-center justify-center bg-gray-300">
-        Resume Live Preview
+        <ResumeViewer />
       </div>
     </div>
   );
