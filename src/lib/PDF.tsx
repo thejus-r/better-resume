@@ -34,15 +34,17 @@ const Section = ({ section, data }: SectionProps) => {
     return (
       <View style={styles.section}>
         <Text style={styles.sectionTitle}>{section}</Text>
-        <Text style={styles.personName}>
-          {JSON.stringify(sectionDetails, null, 2)}
-        </Text>
+        <Text style={styles.personName}>{sectionDetails!.name}</Text>
       </View>
     );
   }
 };
 
-const PDF = ({ sections }: { sections: Sections }) => {
+type PDFProps = {
+  sections: Sections;
+};
+
+const PDF = ({ sections }: PDFProps) => {
   return (
     <Document>
       <Page size="A4">
@@ -55,3 +57,4 @@ const PDF = ({ sections }: { sections: Sections }) => {
 };
 
 export { PDF };
+export type { PDFProps };

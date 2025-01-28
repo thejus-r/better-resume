@@ -16,7 +16,7 @@ const PDFRenderer = ({ src }: PDFViewerProps) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   const [pdfDoc, setPdfDoc] = useState<PDFDocumentProxy>();
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage] = useState(1);
 
   let renderTask: PDFJS.RenderTask;
 
@@ -30,7 +30,7 @@ const PDFRenderer = ({ src }: PDFViewerProps) => {
       pdf
         .getPage(pageNum)
         .then((page) => {
-          const viewport = page.getViewport({ scale: 0.9 });
+          const viewport = page.getViewport({ scale: 1 });
           canvas.height = viewport.height;
           canvas.width = viewport.width;
           const renderContext: RenderParameters = {
@@ -68,7 +68,7 @@ const PDFRenderer = ({ src }: PDFViewerProps) => {
 
   return (
     <div className="flex h-full w-full items-center justify-center bg-gray-300">
-      <canvas ref={canvasRef}></canvas>
+      <canvas className="h-auto w-3/4" ref={canvasRef}></canvas>
     </div>
   );
 };

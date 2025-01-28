@@ -33,7 +33,7 @@ const useResumeStore = create<ResumeDataStore>((set) => ({
         return {
             sections: state.sections.set(section, details)
         }
-    }), 2000),
+    }), 500),
 }))
 
 export type { SectionType, Sections }

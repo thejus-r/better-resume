@@ -1,28 +1,22 @@
 import { useEffect } from "react";
 import { useResumeStore } from "../../store/store";
 import { PDF } from "@lib/PDF";
-import { usePDF, Document, Page } from "@react-pdf/renderer";
+import { usePDF } from "@react-pdf/renderer";
 import { PDFRenderer } from "@lib/renderHelper";
-import { JSONPreview } from "@components/ui/jsonPreview";
-
-const InitialPDFDoc = (
-  <Document>
-    <Page size={"A4"}></Page>
-  </Document>
-);
 
 const ResumeViewer = () => {
-  const [instance, updateInstance] = usePDF({ document: InitialPDFDoc });
+  const { sections } = useResumeStore();
+
+  const InitialPDFDoc = <PDF sections={sections} />;
+  const [instance, update] = usePDF({ document: InitialPDFDoc });
 
   useEffect(() => {
     const unsubscribe = useResumeStore.subscribe((state) => {
-      const updatedPDF = <PDF sections={state.sections} />;
-      updateInstance(updatedPDF);
+      const InitialPDFDoc = <PDF sections={state.sections} />;
+      update(InitialPDFDoc);
     });
 
-    return () => {
-      unsubscribe();
-    };
+    return unsubscribe;
   }, []);
 
   return (
