@@ -1,18 +1,11 @@
+import type { FormSchemaType, SectionsType, SectionSchemaType} from "@lib/formSchema";
 import { create } from "zustand";
 
-type SectionType = "personal" | "work"
-
-type Sections = Map<SectionType, object>
 
 type ResumeDataStore =  {
-    sections: Sections,
-    updateSection: (section: SectionType, details: object) => void
+    sections: FormSchemaType,
+    updateSection: (section: SectionsType, details: SectionSchemaType) => void
 }
-
-let defaultValue:Sections = new Map()
-defaultValue.set("personal", {
-    name: "Thejus Rajendran"
-})
 
 function debounce<T extends (...args: any[]) => void>(func: T, delay: number): (...args: Parameters<T>) => void {
   let timer: NodeJS.Timeout | null = null;
@@ -28,13 +21,13 @@ function debounce<T extends (...args: any[]) => void>(func: T, delay: number): (
 }
 
 const useResumeStore = create<ResumeDataStore>((set) => ({
-    sections: defaultValue,
-    updateSection: debounce((section, details) => set((state) => {
+    sections: new Map(),
+    updateSection: (section, details) => set((state) => {
+      console.log(state.sections)
         return {
             sections: state.sections.set(section, details)
         }
-    }), 500),
+    })
 }))
 
-export type { SectionType, Sections }
 export { useResumeStore }

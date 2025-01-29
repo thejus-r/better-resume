@@ -17,7 +17,7 @@ const ResumeViewer = () => {
     });
 
     return unsubscribe;
-  }, []);
+  }, [sections]);
 
   return (
     <>

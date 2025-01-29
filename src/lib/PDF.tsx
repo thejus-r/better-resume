@@ -1,56 +1,56 @@
-import { Page, Text, View, Document, StyleSheet } from "@react-pdf/renderer";
-import { Sections, SectionType } from "../store/store";
+import { Page, View, Document } from "@react-pdf/renderer";
+import {
+  type SectionsType,
+  type FormSchemaType,
+  type SectionSchemaType,
+} from "@lib/formSchema";
+import { PersonalSection } from "@components/PDF/PersonalSection";
+import { WorkSection } from "@components/PDF/WorkSection";
 
-// Create styles
-const styles = StyleSheet.create({
-  page: {
-    flexDirection: "row",
-    backgroundColor: "#ffffff",
-  },
-  section: {
-    margin: 10,
-    padding: 10,
-    flexGrow: 1,
-  },
+/** Render Order for the Sections.
+ * So that in the Future, may provide the feature to reorder the sections
+ */
+const renderOrder: SectionsType[] = ["personal", "work", "education"];
 
-  sectionTitle: {
-    fontSize: 12,
-  },
-
-  personName: {
-    fontSize: 28,
-  },
-});
-
-const renderOrder: SectionType[] = ["personal"];
-
-type SectionProps = {
-  section: SectionType;
-  data: Sections;
-};
-const Section = ({ section, data }: SectionProps) => {
-  if (data.get(section)) {
-    const sectionDetails = data.get(section);
-    return (
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>{section}</Text>
-        <Text style={styles.personName}>{sectionDetails!.name}</Text>
-      </View>
-    );
+/** Helps build the Sections based on the Key provided. */
+function SectionFactory({
+  section,
+  sectionDetails,
+}: {
+  section: SectionsType;
+  sectionDetails: SectionSchemaType;
+}) {
+  switch (section) {
+    case "personal":
+      return <PersonalSection sectionDetails={sectionDetails} />;
+    case "work":
+      return <WorkSection sectionDetails={sectionDetails} />;
+    default:
+      return <View />;
   }
-};
+}
 
 type PDFProps = {
-  sections: Sections;
+  sections: FormSchemaType;
 };
 
 const PDF = ({ sections }: PDFProps) => {
   return (
     <Document>
       <Page size="A4">
-        {renderOrder.map((key, idx) => (
-          <Section key={idx} section={key} data={sections} />
-        ))}
+        <View style={{ padding: 10, margin: 10, fontFamily: "Times-Roman" }}>
+          {renderOrder.map((key, index) => {
+            if (sections.has(key)) {
+              return (
+                <SectionFactory
+                  sectionDetails={sections.get(key) as SectionSchemaType}
+                  section={key}
+                  key={index}
+                />
+              );
+            }
+          })}
+        </View>
       </Page>
     </Document>
   );
