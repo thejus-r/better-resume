@@ -2,23 +2,40 @@ import { StyleSheet } from "@react-pdf/renderer";
 
 // Create styles
 const styles = StyleSheet.create({
-    page: {
-      flexDirection: "row",
-      backgroundColor: "#ffffff",
-    },
-    section: {
-      margin: 10,
-      padding: 10,
-      flexGrow: 1,
-    },
-  
-    sectionTitle: {
-      fontSize: 12,
-    },
-  
-    personName: {
-      fontSize: 28,
-    },
-  });
+  section: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "stretch",
+    width: "100%",
+    gap: "12px"
+  },
+  leftBox: {
+    flexGrow: 1,
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "baseline",
+    gap: "12px",
+  },
+  rightBox: {
+    display: "flex",
+    flexDirection: "row",
+    gap: "4px"
+  },
+  sectionTitle: {
+    fontSize: 12,
+  },
+  name: {
+    fontSize: 24,
+    fontWeight: "light"
+  },
+  textBase: {
+    fontSize: 12,
+  },
+  designation: {
+    fontSize: 14,
+    textTransform: "uppercase",
+    color: "#999999",
+  },
+});
 
-  export default styles
+export default styles;

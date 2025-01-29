@@ -5,11 +5,12 @@ const Sections = z.enum(["personal", "work", "education"])
 // Schema for Personal Details
 const PersonalDetailsSchema = z.object({
   sectionName: z.literal(Sections.Enum.personal), 
-  name: z.string(),
-  designation: z.string(),
-  email: z.string(),
-  place: z.string(),
-  phoneNumber: z.string(),
+  name: z.string().trim(),
+  designation: z.string().trim(),
+  email: z.string().trim(),
+  place: z.string().trim(),
+  phoneNumber: z.string().trim(),
+  about: z.string().trim().optional()
 })
 
 // Schema for Work Details

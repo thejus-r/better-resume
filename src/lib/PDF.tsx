@@ -38,7 +38,7 @@ const PDF = ({ sections }: PDFProps) => {
   return (
     <Document>
       <Page size="A4">
-        <View>
+        <View style={{ padding: 10, margin: 10, fontFamily: "Times-Roman" }}>
           {renderOrder.map((key, index) => {
             if (sections.has(key)) {
               return (

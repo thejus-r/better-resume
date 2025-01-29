@@ -6,15 +6,16 @@ import { useResumeStore } from "../../store/store";
 import { useEffect } from "react";
 
 import type { PersonalDetailsType } from "@lib/formSchema";
+import { TextArea } from "@components/ui/TextArea";
 
 const PersonalForm = () => {
   const { updateSection } = useResumeStore();
   const { register, watch } = useForm<PersonalDetailsType>({
     defaultValues: {
       sectionName: "personal",
+      name: "",
       designation: "",
       email: "",
-      name: "",
       phoneNumber: "",
       place: "",
     },
@@ -74,6 +75,10 @@ const PersonalForm = () => {
             placeholder="Eg: pambeesly@dmpaper.com"
           />
         </div>
+      </div>
+      <div>
+        <Label>About</Label>
+        <TextArea {...register("about")} placeholder="a summary about you" />
       </div>
     </form>
   );

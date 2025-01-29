@@ -22,12 +22,12 @@ function debounce<T extends (...args: any[]) => void>(func: T, delay: number): (
 
 const useResumeStore = create<ResumeDataStore>((set) => ({
     sections: new Map(),
-    updateSection: debounce((section, details) => set((state) => {
+    updateSection: (section, details) => set((state) => {
       console.log(state.sections)
         return {
             sections: state.sections.set(section, details)
         }
-    }), 500),
+    })
 }))
 
 export { useResumeStore }
