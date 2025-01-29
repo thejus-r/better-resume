@@ -11,6 +11,7 @@ const PersonalForm = () => {
   const { updateSection } = useResumeStore();
   const { register, watch } = useForm<PersonalDetailsType>({
     defaultValues: {
+      sectionName: "personal",
       designation: "",
       email: "",
       name: "",
@@ -21,10 +22,7 @@ const PersonalForm = () => {
 
   useEffect(() => {
     const { unsubscribe } = watch((value) => {
-      updateSection("personal", {
-        sectionName: "personal",
-        sectionDetails: value as PersonalDetailsType,
-      });
+      updateSection("personal", value as PersonalDetailsType);
     });
     return () => unsubscribe();
   }, [watch]);

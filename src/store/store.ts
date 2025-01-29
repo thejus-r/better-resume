@@ -25,10 +25,7 @@ const useResumeStore = create<ResumeDataStore>((set) => ({
     updateSection: debounce((section, details) => set((state) => {
       console.log(state.sections)
         return {
-            sections: state.sections.set(section, {
-              sectionName: section,
-              sectionDetails: details
-            })
+            sections: state.sections.set(section, details)
         }
     }), 500),
 }))
