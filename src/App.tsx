@@ -1,11 +1,13 @@
-import { Content, Header, Icon } from "@components/SectionHeader";
-import { Entity } from "@components/ui/Entity";
-import { AddressBook } from "@phosphor-icons/react/dist/ssr";
+import { MasonryCard } from "@components/MasonryCard";
+import { PersonalDetailsContent } from "@components/PersonalDetailsContent";
+import { Content, Header, Icon, Control } from "@components/SectionHeader";
+import { IconButton } from "@components/ui/IconButton";
+import { AddressBook, PencilSimple } from "@phosphor-icons/react/dist/ssr";
 import { Masonry } from "react-plock";
 
 function App() {
   const items = [
-    PeronalDetailsCard,
+    Personal,
     WorkDetailsCard,
     Skills,
     ContactDetailsCard,
@@ -29,22 +31,8 @@ function App() {
 
 export default App;
 
-const PeronalDetailsCard = () => {
-  return (
-    <div className="h-auto rounded-3xl bg-white p-2">
-      <Header>
-        <Icon icon={AddressBook} />
-        <Content>Personal Details</Content>
-      </Header>
-      <div className="my-4 grid grid-cols-1 gap-4 lg:grid-cols-2">
-        <Entity label="Name" text="Thejus Rajendran" />
-        <Entity label="Role" text="Full Stack Developer" />
-        <Entity label="Email" text="thejusr1999@gmail.com" />
-        <Entity label="Phone" text="+91 7994787149" />
-        <Entity label="Place" text="Bengaluru, Karnataka" />
-      </div>
-    </div>
-  );
+const Personal = () => {
+  return <MasonryCard content={<PersonalDetailsContent />} />;
 };
 
 const WorkDetailsCard = () => {
@@ -53,6 +41,14 @@ const WorkDetailsCard = () => {
       <Header>
         <Icon icon={AddressBook} />
         <Content>Work Experience</Content>
+        <Control>
+          <IconButton className="text-blue-500">
+            <IconButton.Icon className="fill-blue-500">
+              <PencilSimple className="fill-inherit" size={16} />
+            </IconButton.Icon>
+            <IconButton.Content>Edit</IconButton.Content>
+          </IconButton>
+        </Control>
       </Header>
     </div>
   );
