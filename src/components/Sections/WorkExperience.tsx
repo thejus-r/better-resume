@@ -14,7 +14,7 @@ const schema = formSchema.pick({
 
 type SchemaType = z.infer<typeof schema>
 
-export const PersonalSection = () => {
+export const WorkExperienceSection = () => {
 
   const { register, handleSubmit, formState } = useForm<SchemaType>({
     resolver: zodResolver(schema)
@@ -24,18 +24,18 @@ export const PersonalSection = () => {
     <Modal.Root>
       <div className="p-2 flex flex-col gap-2">
         <div className="flex h-12 items-center justify-center gap-2 rounded-2xl bg-gray-100 p-1.5">
-          <div className="flex items-center justify-center rounded-xl bg-gray-800 fill-w/Users/mave/Desktop/Screenshot\ 2025-02-10\ at\ 12.57.16 PM.pnghite p-2.5">
+          <div className="flex items-center justify-center rounded-xl bg-gray-800 fill-w p-2.5">
             <Person className="fill-inherit" />
           </div>
           <h3 className="w-full font-mono text-sm uppercase text-gray-800">
-            Personal
+            Work Experience
           </h3>
           <Modal.Trigger asChild>
             <Button>
               <ButtonIcon>
                 <Pencil />
               </ButtonIcon>
-              Edit
+              add
             </Button>
           </Modal.Trigger>
         </div>
@@ -44,11 +44,15 @@ export const PersonalSection = () => {
         </div>
       </div>
       <Modal.Popup>
-        <Modal.Title>Change your peronal details</Modal.Title>
+        <Modal.Title>Add your work experience</Modal.Title>
         <Modal.Content>
           <form onSubmit={handleSubmit(onSubmit)}>
-            <InputField error={formState.errors.personalDetails?.name?.message} htmlFor={"name"} label="Name" register={register("personalDetails.name")} />
-            <InputField error={formState.errors.personalDetails?.email?.message} htmlFor={"email"} label="Email address" register={register("personalDetails.email")} />
+            <InputField label="Company Name" htmlFor="companyName"/>
+            <InputField label="Role" htmlFor="role"/>
+            <div className="flex flex-row w-full gap-4">
+              <InputField label="From" type="date" htmlFor="formDate"/>
+              <InputField label="To" htmlFor="toDate"/>
+            </div>
             <button type="submit" >Submit</button>
           </form>
         </Modal.Content>

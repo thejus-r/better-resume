@@ -1,4 +1,5 @@
 import { PersonalSection } from "@components/Sections/Personal";
+import { WorkExperienceSection } from "@components/Sections/WorkExperience";
 import { Masonry } from "react-plock";
 
 const cards = [
@@ -7,7 +8,11 @@ const cards = [
       <PersonalSection />
     </MasonryCard>
   ),
-  () => <MasonryCard>Item 2</MasonryCard>,
+  () =>(
+    <MasonryCard>
+      <WorkExperienceSection/>
+    </MasonryCard>
+  ),
   () => <MasonryCard>Item 3</MasonryCard>,
   () => <MasonryCard>Item 4</MasonryCard>,
   () => <MasonryCard>Item 5</MasonryCard>,
@@ -19,12 +24,14 @@ const MasonryLayout = () => {
     <Masonry
       className="w-full"
       items={cards}
-      config={{
-        columns: [1, 2, 3],
-        gap: [8, 12, 16],
-        media: [640, 768, 1024],
-        useBalancedLayout: true,
-      }}
+      config={
+        {
+          columns: [1, 2, 3],
+          gap: [8, 12, 16],
+          media: [640, 768, 1024],
+          useBalancedLayout: true,
+        }
+      }
       render={(Element, idx) => <Element key={idx} />}
     />
   );
