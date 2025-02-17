@@ -1,30 +1,31 @@
-import { Button, ButtonIcon } from "@components/ui/Button";
+import { Button } from "@components/ui/Button";
 import { Pencil, Person } from "@phosphor-icons/react";
 import * as Modal from "@components/ui/Modal";
-import { InputField } from "@components/ui/InputField";
-import { useForm, SubmitHandler } from "react-hook-form";
-import { formSchema } from "../../schemas/form";
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod"
-import { EmptyContent } from "@components/ui/EmptyContent";
+import { AddWorkModal } from "@components/Modals/AddWork";
+import { WorkCard } from "@components/Cards/Work";
 
-const schema = formSchema.pick({
-  personalDetails: true
-})
-
-type SchemaType = z.infer<typeof schema>
+const allWorkExperience = [
+  {
+    isCurrentCompany: true,
+    role: "Product Designer",
+    companyName: "Flooid LLP",
+    from: "April 2024",
+  },
+  {
+    isCurrentCompany: false,
+    role: "Product Designer",
+    companyName: "Flooid LLP",
+    from: "April 2024",
+    to: "October 2024",
+  },
+];
 
 export const WorkExperienceSection = () => {
-
-  const { register, handleSubmit, formState } = useForm<SchemaType>({
-    resolver: zodResolver(schema)
-  })
-  const onSubmit: SubmitHandler<SchemaType> = (data) => console.log(data)
   return (
     <Modal.Root>
-      <div className="p-2 flex flex-col gap-2">
+      <div className="flex flex-col gap-2 p-2">
         <div className="flex h-12 items-center justify-center gap-2 rounded-2xl bg-gray-100 p-1.5">
-          <div className="flex items-center justify-center rounded-xl bg-gray-800 fill-w p-2.5">
+          <div className="fill-w flex items-center justify-center rounded-xl bg-gray-800 fill-white p-2.5">
             <Person className="fill-inherit" />
           </div>
           <h3 className="w-full font-mono text-sm uppercase text-gray-800">
@@ -32,30 +33,28 @@ export const WorkExperienceSection = () => {
           </h3>
           <Modal.Trigger asChild>
             <Button>
-              <ButtonIcon>
+              <Button.Icon>
                 <Pencil />
-              </ButtonIcon>
+              </Button.Icon>
               add
             </Button>
           </Modal.Trigger>
         </div>
-        <div>
-          <EmptyContent />
+        <div className="flex flex-col gap-2">
+          {allWorkExperience.map((data, idx) => (
+            <WorkCard
+              key={idx}
+              isCurrentCompany={data.isCurrentCompany}
+              companyName={data.companyName}
+              role={data.role}
+              from={data.from}
+              to={data.to}
+            />
+          ))}
         </div>
       </div>
       <Modal.Popup>
-        <Modal.Title>Add your work experience</Modal.Title>
-        <Modal.Content>
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <InputField label="Company Name" htmlFor="companyName"/>
-            <InputField label="Role" htmlFor="role"/>
-            <div className="flex flex-row w-full gap-4">
-              <InputField label="From" type="date" htmlFor="formDate"/>
-              <InputField label="To" htmlFor="toDate"/>
-            </div>
-            <button type="submit" >Submit</button>
-          </form>
-        </Modal.Content>
+        <AddWorkModal />
       </Modal.Popup>
     </Modal.Root>
   );
