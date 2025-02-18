@@ -1,4 +1,5 @@
 import { Button } from "@components/ui/Button";
+import { TextButton } from "@components/ui/TextButton";
 import { Pencil, Person } from "@phosphor-icons/react";
 import * as Modal from "@components/ui/Modal";
 import { InputField } from "@components/ui/InputField";
@@ -30,12 +31,12 @@ export const PersonalSection = () => {
             Personal
           </h3>
           <Modal.Trigger asChild>
-            <Button>
-              <Button.Icon>
+            <TextButton>
+              <TextButton.Icon>
                 <Pencil />
-              </Button.Icon>
+              </TextButton.Icon>
               Edit
-            </Button>
+            </TextButton>
           </Modal.Trigger>
         </div>
         <div>

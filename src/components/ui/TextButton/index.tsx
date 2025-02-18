@@ -1,3 +1,3 @@
-import { Root, Button, Icon } from "./TextButton";
+import { Root, TextButton, Icon } from "./TextButton";
 
-export { Root, Button, Icon };
+export { Root, TextButton, Icon };
