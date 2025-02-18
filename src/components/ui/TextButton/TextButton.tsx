@@ -1,7 +1,7 @@
 import { cva, cx, type VariantProps } from "class-variance-authority";
 
 const textButtonVariants = cva(
-  "rounded-full flex h-12 items-center justify-center p-2 text-sm gap-2 hover:brightness-125",
+  "rounded-full flex h-12 items-center justify-center p-2 text-sm gap-hover:brightness-125",
   {
     variants: {
       state: {

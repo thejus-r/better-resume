@@ -1,4 +1,3 @@
-import { Button } from "@components/ui/Button";
 import { TextButton } from "@components/ui/TextButton";
 import { Pencil, Person } from "@phosphor-icons/react";
 import * as Modal from "@components/ui/Modal";
