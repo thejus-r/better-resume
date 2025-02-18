@@ -1,5 +1,6 @@
 import { Button } from "@components/ui/Button";
 import { InputField } from "@components/ui/InputField";
+import * as NInputField from "@components/ui/InputField/InputField"
 import { TrashSimple, PencilSimple } from "@phosphor-icons/react";
 import * as Dialog from "@radix-ui/react-dialog"
 import * as Switch from "@radix-ui/react-switch";
@@ -40,7 +41,7 @@ const WorkCard = (props: WorkCardProps) => {
             <Dialog.Content className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-white rounded-xl overflow-clip w-5/12">
               <Dialog.Title className="p-4 w-full text-lg bg-gray-50">Edit Work Experience</Dialog.Title>
               <div className="p-4 w-full">
-                <WorkFields details={props} />
+                <WorkFields />
               </div>
               <div className="px-4 pb-4 flex items-center justify-end gap-2">
                 <Dialog.Close asChild>
@@ -57,10 +58,16 @@ const WorkCard = (props: WorkCardProps) => {
   );
 };
 
-const WorkFields = ({ details }: { details: WorkCardProps }) => {
+const WorkFields = () => {
   return <form>
-    <InputField label="Role" htmlFor="role" />
-    <InputField label="Company Name" htmlFor="companyName" />
+    <NInputField.Root>
+      <NInputField.Label>Role</NInputField.Label>
+      <NInputField.Input name="Role" />
+    </NInputField.Root>
+    <NInputField.Root>
+      <NInputField.Label>Company Name</NInputField.Label>
+      <NInputField.Input name="Company Name" />
+    </NInputField.Root>
     <div className="flex flex-row gap-2">
       <Switch.Root className="peer mb-3 inline-flex w-9 h-5 rounded-full shrink-0 cursor-pointer transition-colors items-center border-2 border-transparent border-gray-300 data-[state=checked]:bg-gray-800 data-[state=unchecked]:bg-gray-200">
         <Switch.Thumb

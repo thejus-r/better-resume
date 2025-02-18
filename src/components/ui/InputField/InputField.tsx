@@ -1,11 +1,51 @@
-import { cva } from "class-variance-authority"
+import { cva, cx, type VariantProps } from "class-variance-authority"
 
-type states = "default" | "disabled" | "error"
-
-const inputFieldVariants = cva("", {
+const inputFieldVariants = cva("flex flex-col gap-2 mb-2.5", {
   variants: {
     state: {
-      default: "text-black"
+      default: "",
+      disabled: "cursor-none"
+    }
+  },
+  defaultVariants: {
+    state: "default"
+  },
+})
+
+type InputFieldProps = React.HTMLAttributes<HTMLDivElement> & VariantProps<typeof inputFieldVariants> & {
+  children: React.ReactNode
+}
+
+const InputField = ({ state, children }: InputFieldProps) => {
+  return <div className={cx(inputFieldVariants({ state }))}>{children}</div>
+}
+
+// Input 
+const inputVariants = cva("border rounded-2xl p-2", {
+  variants: {
+    state: {
+      default: "border-gray-200 text-gray-800",
+      disabled: "border-gray-100 bg-gray-50 text-gray-400 placeholder:text-gray-400",
+      error: "text-red-500",
+    }
+  },
+  defaultVariants: {
+    state: "default"
+  },
+})
+
+type InputProps = React.InputHTMLAttributes<HTMLInputElement> & VariantProps<typeof inputVariants> & {
+}
+
+const Input = ({ state, ...props }: InputProps) => {
+  return <input className={cx(inputVariants({ state }))} {...props} />
+}
+
+// Label
+const labelVariants = cva("text-xs", {
+  variants: {
+    state: {
+      default: "text-gray-500"
     }
   },
   defaultVariants: {
@@ -13,28 +53,11 @@ const inputFieldVariants = cva("", {
   }
 })
 
-type InputFieldProps = React.HTMLAttributes<HTMLDivElement> & {
-  children: React.ReactNode
+type LabelProps = React.LabelHTMLAttributes<HTMLLabelElement> & VariantProps<typeof labelVariants> & {
 }
 
-const InputField = ({ children }: InputFieldProps) => {
-  return <div>{children}</div>
-}
-
-type InputProps = React.InputHTMLAttributes<HTMLInputElement> & {
-}
-
-const Input = ({ ...props }: InputProps) => {
-  return <input {...props} />
-}
-
-// Label
-
-type LabelProps = React.LabelHTMLAttributes<HTMLLabelElement> & {
-}
-
-const Label = ({ ...props }: LabelProps) => {
-  return <label {...props} />
+const Label = ({ state, ...props }: LabelProps) => {
+  return <label className={cx(labelVariants({ state }))} {...props} />
 }
 
 const Root = InputField
