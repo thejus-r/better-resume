@@ -1,27 +1,15 @@
 import { cva, cx, type VariantProps } from "class-variance-authority"
 
-const inputFieldVariants = cva("flex flex-col gap-2 mb-2.5", {
-  variants: {
-    state: {
-      default: "",
-      disabled: "cursor-none"
-    }
-  },
-  defaultVariants: {
-    state: "default"
-  },
-})
-
-type InputFieldProps = React.HTMLAttributes<HTMLDivElement> & VariantProps<typeof inputFieldVariants> & {
+type InputFieldProps = React.HTMLAttributes<HTMLDivElement> & {
   children: React.ReactNode
 }
 
-const InputField = ({ state, children }: InputFieldProps) => {
-  return <div className={cx(inputFieldVariants({ state }))}>{children}</div>
+const InputField = ({ children }: InputFieldProps) => {
+  return <div className="flex flex-col gap-2 mb-2.5 w-full group">{children}</div>
 }
 
 // Input 
-const inputVariants = cva("border rounded-2xl p-2", {
+const inputVariants = cva("border rounded-2xl p-1 w-full", {
   variants: {
     state: {
       default: "border-gray-200 text-gray-800",
@@ -38,11 +26,11 @@ type InputProps = React.InputHTMLAttributes<HTMLInputElement> & VariantProps<typ
 }
 
 const Input = ({ state, ...props }: InputProps) => {
-  return <input className={cx(inputVariants({ state }))} {...props} />
+  return <input className="border rounded-2xl p-1.5 w-full border-gray-200 text-gray-800 invalid:border-red-500" {...props} />
 }
 
 // Label
-const labelVariants = cva("text-xs", {
+const labelVariants = cva("text-xs w-full", {
   variants: {
     state: {
       default: "text-gray-500"
@@ -57,7 +45,7 @@ type LabelProps = React.LabelHTMLAttributes<HTMLLabelElement> & VariantProps<typ
 }
 
 const Label = ({ state, ...props }: LabelProps) => {
-  return <label className={cx(labelVariants({ state }))} {...props} />
+  return <label className="text-xs peer-invalid:text-red-500 text-gray-500" {...props} />
 }
 
 const Root = InputField

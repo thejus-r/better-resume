@@ -7,6 +7,7 @@ import { formSchema } from "../../schemas/form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { EmptyContent } from "@components/ui/EmptyContent";
+import { Button } from "@components/ui/Button/Button";
 
 const schema = formSchema.pick({
   personalDetails: true,
@@ -30,12 +31,12 @@ export const PersonalSection = () => {
             Personal
           </h3>
           <Modal.Trigger asChild>
-            <TextButton>
-              <TextButton.Icon>
+            <Button intent={"tertiary"} btnType={"text"} >
+              <span>
                 <Pencil />
-              </TextButton.Icon>
-              Edit
-            </TextButton>
+              </span>
+              edit
+            </Button>
           </Modal.Trigger>
         </div>
         <div>

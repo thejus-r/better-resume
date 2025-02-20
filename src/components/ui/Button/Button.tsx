@@ -1,21 +1,32 @@
 import { cva, cx, type VariantProps } from "class-variance-authority";
 
 const buttonVariants = cva(
-  "rounded-full flex h-12 items-center justify-center p-5 text-sm gap-2 hover:brightness-125",
+  "flex items-center justify-center gap-2",
   {
     variants: {
+      intent: {
+        primary: "bg-gray-900 text-white fill-white",
+        tertiary: "bg-none text-blue-500 fill-blue-500",
+        destructive: "bg-none text-red-500 fill-red-500",
+      },
       size: {
-        sm: "h-10 p-4",
-        base: "h-12 p-5",
+        sm: "px-3 py-1.5 text-xs min-w-20 min-h-9",
+        md: "px-4 py-3 text-sm min-w-24 min-h-10"
       },
-      state: {
-        default: "bg-gray-800 text-gray-50 border-none",
-        destructive: "bg-red-50 border-red-500 text-red-500",
-      },
+      btnType: {
+        regular: "rounded-xl",
+        text: "min-w-0 gap-[4px]",
+        icon: "rounded-2xl"
+      }
     },
+    compoundVariants: [
+      { btnType: "icon", size: "sm", className: "px-0 py-0 h-9 w-9 min-w-9" },
+      { btnType: "icon", size: "md", className: "px-0 py-0 h-10 w-10 min-w-10" },
+    ],
     defaultVariants: {
-      size: "base",
-      state: "default",
+      intent: "primary",
+      size: "md",
+      btnType: "regular"
     },
   },
 );
@@ -26,9 +37,9 @@ type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> &
     children: React.ReactNode;
   };
 
-const Button = ({ children, state, ...props }: ButtonProps) => {
+const Button = ({ children, intent, size, btnType, ...props }: ButtonProps) => {
   return (
-    <button {...props} className={cx(buttonVariants({ state }))}>
+    <button {...props} className={cx(buttonVariants({ intent, size, btnType }))}>
       {children}
     </button>
   );
