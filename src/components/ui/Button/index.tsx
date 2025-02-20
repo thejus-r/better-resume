@@ -1,3 +1,3 @@
-import { Root, Button, Icon } from "./Button";
+import { Button } from "./Button";
 
-export { Root, Button, Icon };
+export { Button };

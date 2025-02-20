@@ -1,4 +1,3 @@
-import { TextButton } from "@components/ui/TextButton";
 import { Pencil, Person } from "@phosphor-icons/react";
 import * as Modal from "@components/ui/Modal";
 import { InputField } from "@components/ui/InputField";
@@ -7,7 +6,7 @@ import { formSchema } from "../../schemas/form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { EmptyContent } from "@components/ui/EmptyContent";
-import { Button } from "@components/ui/Button/Button";
+import { Button } from "@components/ui/Button";
 
 const schema = formSchema.pick({
   personalDetails: true,
@@ -59,7 +58,7 @@ export const PersonalSection = () => {
               label="Email address"
               register={register("personalDetails.email")}
             />
-            <button type="submit">Submit</button>
+            <Button type="submit">Submit</Button>
           </form>
         </Modal.Content>
       </Modal.Popup>

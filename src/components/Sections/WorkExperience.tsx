@@ -2,7 +2,7 @@ import { Pencil, Person } from "@phosphor-icons/react";
 import { WorkCard } from "@components/Cards/WorkCard";
 import { v6 as uuid } from "uuid"
 import { useWorkExperienceStore, WorkExperienceType } from "../../store/workStore";
-import { Button } from "@components/ui/Button/Button";
+import { Button } from "@components/ui/Button";
 
 export const WorkExperienceSection = () => {
   const allWorkExperience = useWorkExperienceStore((state) => state.allExperience)

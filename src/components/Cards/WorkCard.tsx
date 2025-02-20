@@ -1,9 +1,5 @@
-import { Button } from "@components/ui/Button";
-import * as InputField from "@components/ui/InputField/InputField"
 import { TrashSimple, PencilSimple } from "@phosphor-icons/react";
-import * as Dialog from "@radix-ui/react-dialog"
 import * as Modal from "@components/ui/Modal/Modal"
-import * as Switch from "@radix-ui/react-switch";
 import { useWorkExperienceStore, WorkExperienceType } from "../../store/workStore";
 import { useState } from "react";
 import { WorkDetailsForm } from "@components/Forms/WorkDetailsForm";

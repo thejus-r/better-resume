@@ -45,19 +45,4 @@ const Button = ({ children, intent, size, btnType, ...props }: ButtonProps) => {
   );
 };
 
-type ButtonIconProps = {
-  children: React.ReactNode;
-};
-// Icon SVG Container
-const Icon = ({ children, ...props }: ButtonIconProps) => {
-  return (
-    <span className="block" {...props}>
-      {children}
-    </span>
-  );
-};
-
-const Root = Button;
-Button.Root = Root;
-Button.Icon = Icon;
-export { Root, Button, Icon };
+export { Button };

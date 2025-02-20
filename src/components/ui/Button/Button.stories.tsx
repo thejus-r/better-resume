@@ -22,9 +22,7 @@ export const ButtonWithIcon: Story = {
   args: {},
   render: () => (
     <Button>
-      <Button.Icon>
-        <PencilSimple weight="bold" />
-      </Button.Icon>
+      <PencilSimple weight="bold" />
       Click Me!
     </Button>
   ),
@@ -36,9 +34,7 @@ export const ButtonWithIcon2: Story = {
   render: () => (
     <Button>
       Click Me!
-      <Button.Icon>
-        <TagChevron weight="bold" />
-      </Button.Icon>
+      <TagChevron weight="bold" />
     </Button>
   ),
 };

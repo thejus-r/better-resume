@@ -9,7 +9,6 @@ import { Modal } from "@components/ui/Modal/Modal";
 import { Button } from "@components/ui/Button";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { PencilSimple } from "@phosphor-icons/react";
 
 type WorkFieldProps = {
   defaultValue?: WorkExperienceType;
