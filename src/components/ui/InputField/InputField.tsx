@@ -1,51 +1,83 @@
-import { cva, cx, type VariantProps } from "class-variance-authority"
+import { cva, type VariantProps } from "class-variance-authority"
+import { createContext, useContext } from "react"
+import { twMerge } from "tailwind-merge"
 
-type InputFieldProps = React.HTMLAttributes<HTMLDivElement> & {
-  children: React.ReactNode
+
+// Using context to manage state for the children element
+type InputFieldContextType = {
+  error: boolean,
+  disable: boolean
 }
 
-const InputField = ({ children }: InputFieldProps) => {
-  return <div className="flex flex-col gap-2 mb-2.5 w-full group">{children}</div>
+const InputFieldContext = createContext<InputFieldContextType>({ disable: false, error: false })
+
+
+// InputField.Root
+type InputFieldProps = Omit<React.HTMLAttributes<HTMLDivElement>, "disable"> & {
+  children: React.ReactNode,
+  disable?: boolean,
+  error?: boolean
 }
 
-// Input 
-const inputVariants = cva("border rounded-2xl p-1 w-full", {
+const InputField = ({ children, disable, error }: InputFieldProps) => {
+  return <InputFieldContext.Provider value={{ disable: disable! ?? false, error: error! ?? false }}>
+    <div className="flex flex-col gap-2 mb-2.5 w-full group">{children}</div>
+  </InputFieldContext.Provider>
+}
+
+
+// InputField.Input
+const inputVariants = cva(
+  ["border", "rounded-2xl", "p-2", "w-full", "border-gray-200", "text-gray-800"], {
   variants: {
-    state: {
-      default: "border-gray-200 text-gray-800",
-      disabled: "border-gray-100 bg-gray-50 text-gray-400 placeholder:text-gray-400",
-      error: "text-red-500",
-    }
+    error: {
+      false: null,
+      true: ["text-red-500", "border-red-500"]
+    },
+    disable: {
+      false: null,
+      true: ["opacity-50", "cursor-not-allowed"]
+    },
   },
   defaultVariants: {
-    state: "default"
+    error: false,
+    disable: false
   },
 })
 
-type InputProps = React.InputHTMLAttributes<HTMLInputElement> & VariantProps<typeof inputVariants> & {
+type InputProps = Omit<React.InputHTMLAttributes<HTMLInputElement>, "disable"> & VariantProps<typeof inputVariants> & {
+}
+const Input = ({ ...props }: InputProps) => {
+  const { disable, error } = useContext(InputFieldContext)
+  return <input disabled={disable} className={twMerge(inputVariants({ disable: disable, error: error }))} {...props} />
 }
 
-const Input = ({ state, ...props }: InputProps) => {
-  return <input className="border rounded-2xl p-1.5 w-full border-gray-200 text-gray-800 invalid:border-red-500" {...props} />
-}
 
-// Label
-const labelVariants = cva("text-xs w-full", {
+
+// InputField.Label
+const labelVariants = cva(["text-xs", "text-gray-500"], {
   variants: {
-    state: {
-      default: "text-gray-500"
+    error: {
+      false: null,
+      true: ["text-red-500"]
+    },
+    disable: {
+      false: null,
+      true: ["opacity-50", "cursor-not-allowed"]
     }
   },
   defaultVariants: {
-    state: "default"
+    error: false,
+    disable: false
   }
 })
 
-type LabelProps = React.LabelHTMLAttributes<HTMLLabelElement> & VariantProps<typeof labelVariants> & {
+type LabelProps = Omit<React.LabelHTMLAttributes<HTMLLabelElement>, "disable"> & VariantProps<typeof labelVariants> & {
 }
 
-const Label = ({ state, ...props }: LabelProps) => {
-  return <label className="text-xs peer-invalid:text-red-500 text-gray-500" {...props} />
+const Label = ({ ...props }: LabelProps) => {
+  const { disable, error } = useContext(InputFieldContext)
+  return <label className={twMerge(labelVariants({ error: error, disable: disable }))} {...props} />
 }
 
 const Root = InputField

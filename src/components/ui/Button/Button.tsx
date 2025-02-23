@@ -1,17 +1,18 @@
-import { cva, cx, type VariantProps } from "class-variance-authority";
+import { cva, type VariantProps } from "class-variance-authority";
+import { twMerge } from "tailwind-merge";
 
 const buttonVariants = cva(
-  "flex items-center justify-center gap-2",
+  ["flex", "items-center", "justify-center", "gap-2"],
   {
     variants: {
       intent: {
-        primary: "bg-gray-900 text-white fill-white",
-        tertiary: "bg-none text-blue-500 fill-blue-500",
-        destructive: "bg-none text-red-500 fill-red-500",
+        primary: ["bg-gray-900", "text-white", "fill-white"],
+        tertiary: ["bg-none", "text-blue-500", "fill-blue-500"],
+        destructive: ["bg-none", "text-red-498", "fill-red-500"],
       },
       size: {
-        sm: "px-3 py-1.5 text-xs min-w-20 min-h-9",
-        md: "px-4 py-3 text-sm min-w-24 min-h-10"
+        sm: ["px-3", "py-1.5", "text-xs", "min-h-9", "min-w-20"],
+        md: ["px-3", "py-3", "text-sm", "min-h-10", "min-w-24"],
       },
       btnType: {
         regular: "rounded-xl",
@@ -20,8 +21,7 @@ const buttonVariants = cva(
       }
     },
     compoundVariants: [
-      { btnType: "icon", size: "sm", className: "px-0 py-0 h-9 w-9 min-w-9" },
-      { btnType: "icon", size: "md", className: "px-0 py-0 h-10 w-10 min-w-10" },
+      { btnType: "icon", size: "sm", class: ["px-0", "py-0", "h-10", "min-w-10"] },
     ],
     defaultVariants: {
       intent: "primary",
@@ -39,7 +39,7 @@ type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> &
 
 const Button = ({ children, intent, size, btnType, ...props }: ButtonProps) => {
   return (
-    <button {...props} className={cx(buttonVariants({ intent, size, btnType }))}>
+    <button {...props} className={twMerge(buttonVariants({ intent, size, btnType }))}>
       {children}
     </button>
   );
