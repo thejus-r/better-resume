@@ -1,77 +1,113 @@
-import { InputField } from "@components/ui/InputField/InputField";
-import * as Switch from "@radix-ui/react-switch";
-import {
-  workExperienceSchema,
-  WorkExperienceType,
-  useWorkExperienceStore,
-} from "../../store/workStore";
-import { Modal } from "@components/ui/Modal/Modal";
-import { Button } from "@components/ui/Button";
-import { useForm } from "react-hook-form";
+import { useWorkExperienceStore } from "../../store/workStore";
+import { SubmitHandler, useForm, useWatch, type FieldErrors } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Modal } from "@components/ui/Modal/Modal";
+import { InputField } from "@components/ui/InputField/InputField";
+import { Button } from "@components/ui/Button";
+import { v6 as uuid } from "uuid"
 
-type WorkFieldProps = {
-  defaultValue?: WorkExperienceType;
-};
+import { workExperienceSchema, type TWorkExperienceSchema } from "../../schemas/workExperienceSchema"
+import { type TWorkExperience } from "../../types/WorkExperience";
 
-const WorkDetailsForm = ({ defaultValue }: WorkFieldProps) => {
-  // const addExperience = useWorkExperienceStore((state) => state.addExperience)
+type TWorkDetailsFormProps = {
+  workExperience?: TWorkExperience
+  afterSave: () => void
+}
+
+/**
+ * Form element for Work Experience Details
+ * @param workExperience Optional parameter, if workExperience is not passed to the component, it adds to the Work Experience List.
+ * @param afterSave Required, function that can be called once the create/update process is done, Here its usually used to close the modal.
+ */
+const WorkDetailsForm = ({ workExperience, afterSave }: TWorkDetailsFormProps) => {
+  const addExperience = useWorkExperienceStore((state) => state.addExperience)
+  const updateExperience = useWorkExperienceStore((state) => state.updateExperience)
+
+  let defautValues: TWorkExperienceSchema = {
+    companyName: "",
+    currentCompany: false,
+    from: "2025-01",
+    role: "",
+    to: "2025-01"
+  }
+  if (workExperience != undefined) {
+    defautValues = workExperienceSchema.parse(workExperience)
+  }
 
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<WorkExperienceType>({
+    control
+  } = useForm<TWorkExperienceSchema>({
     resolver: zodResolver(workExperienceSchema),
-    defaultValues: defaultValue
+    defaultValues: defautValues
   });
 
-  const onSubmit = (data: WorkExperienceType) => {
-    console.log(data);
-  };
+  // Extracting all the types to keep TypeScript happy, since DiscriminatedUnion is used in Zod Schema.
+  const fullErrors: FieldErrors<Extract<TWorkExperienceSchema, { currentCompany: false }>> = errors
+
+  // For live updating the state of 'to' field
+  const isCurrentCompany = useWatch({ control, name: "currentCompany" })
+  const toMonth = useWatch({ control, name: "to" })
+  const fromMonth = useWatch({ control, name: "from" })
+
+  const onSubmit: SubmitHandler<TWorkExperienceSchema> = (data) => {
+    if (workExperience != undefined) {
+      const updatedWorkExperience = { id: workExperience.id, ...data }
+      updateExperience(updatedWorkExperience)
+
+    } else {
+      const newWorkExperience = { id: uuid(), ...data }
+      addExperience(newWorkExperience)
+    }
+    afterSave()
+  }
 
   return (
-    <form onSubmit={handleSubmit((data) => onSubmit(data))}>
-      <InputField.Root>
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <InputField.Root error={fullErrors.role != undefined}>
         <InputField.Label>Role</InputField.Label>
         <InputField.Input
-          defaultValue={defaultValue?.role}
           {...register("role")}
         />
-        {errors.role?.message && <p> Error </p>}
+        <InputField.Error> {fullErrors.role?.message} </InputField.Error>
       </InputField.Root>
-      <InputField.Root>
+      <InputField.Root error={fullErrors.companyName != undefined}>
         <InputField.Label>Company Name</InputField.Label>
         <InputField.Input
-          type="email"
-          defaultValue={defaultValue?.companyName}
           {...register("companyName")}
         />
-        {errors.companyName?.message && <p> Error </p>}
+        <InputField.Error> {fullErrors.companyName?.message} </InputField.Error>
       </InputField.Root>
       <div className="flex flex-row gap-2">
         <input type="checkbox" {...register("currentCompany")} />
         <p className="text-sm">I currently work here</p>
-        {errors.currentCompany?.message && <p> Error </p>}
+        {fullErrors.currentCompany?.message && <p> Error </p>}
       </div>
       <div className="flex w-full flex-row gap-4">
-        <InputField.Root>
+        <InputField.Root error={fullErrors.from != undefined}>
           <InputField.Label>From</InputField.Label>
           <InputField.Input
+            max={toMonth}
+
             type="month"
-            defaultValue={defaultValue?.from}
             {...register("from")}
           />
-          {errors.from?.message && <p> Error </p>}
+          <InputField.Error> {fullErrors.from?.message} </InputField.Error>
         </InputField.Root>
-        <InputField.Root>
+        <InputField.Root disable={isCurrentCompany} error={fullErrors.to != undefined}>
           <InputField.Label>To</InputField.Label>
           <InputField.Input
+            min={fromMonth}
             type="month"
-            defaultValue={defaultValue?.from}
             {...register("to")}
           />
+          <InputField.Error>
+            {fullErrors.to?.message}
+          </InputField.Error>
         </InputField.Root>
+
       </div>
       <div className="mt-4 flex w-full items-center justify-end gap-2">
         <Modal.Close asChild>
@@ -86,7 +122,6 @@ const WorkDetailsForm = ({ defaultValue }: WorkFieldProps) => {
 };
 
 export { WorkDetailsForm };
-
 
 /*
         <Switch.Root

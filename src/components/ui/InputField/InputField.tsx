@@ -80,9 +80,30 @@ const Label = ({ ...props }: LabelProps) => {
   return <label className={twMerge(labelVariants({ error: error, disable: disable }))} {...props} />
 }
 
+// InputField.Error
+const errorVariants = cva(["text-xs", "text-red-500"], {
+  variants: {
+    error: {
+      false: ["hidden"],
+      true: ["block"]
+    }
+  },
+  defaultVariants: {
+    error: false
+  }
+})
+
+type ErrorProps = Omit<React.ParamHTMLAttributes<HTMLParagraphElement>, "disable"> & VariantProps<typeof errorVariants>
+
+const Error = ({ ...props }: ErrorProps) => {
+  const { error } = useContext(InputFieldContext)
+  return <p className={twMerge(errorVariants({ error }))} {...props} />
+}
+
 const Root = InputField
 InputField.Root = Root
 InputField.Input = Input
 InputField.Label = Label
+InputField.Error = Error
 
-export { Root, InputField, Input, Label }
+export { Root, InputField, Input, Label, Error }

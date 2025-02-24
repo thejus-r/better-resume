@@ -1,0 +1,1 @@
+const date = Date.parse("04 Dec 1995")

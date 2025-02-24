@@ -7,7 +7,7 @@ const buttonVariants = cva(
     variants: {
       intent: {
         primary: ["bg-gray-900", "text-white", "fill-white"],
-        tertiary: ["bg-none", "text-blue-500", "fill-blue-500"],
+        tertiary: ["bg-none", "text-blue-500"],
         destructive: ["bg-none", "text-red-498", "fill-red-500"],
       },
       size: {
@@ -16,12 +16,14 @@ const buttonVariants = cva(
       },
       btnType: {
         regular: "rounded-xl",
-        text: "min-w-0 gap-[4px]",
+        text: ["gap-[4px]"],
         icon: "rounded-2xl"
       }
     },
     compoundVariants: [
       { btnType: "icon", size: "sm", class: ["px-0", "py-0", "h-10", "min-w-10"] },
+      { btnType: "text", size: "sm", class: ["px-0", "py-0", "h-10", "min-w-14"] },
+      { btnType: "text", size: "md", class: ["px-0", "py-0", "h-10", "min-w-16"] },
     ],
     defaultVariants: {
       intent: "primary",

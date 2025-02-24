@@ -1,8 +1,5 @@
 import * as RadixDialog from '@radix-ui/react-dialog'
 
-
-
-
 const Modal = ({ open, onOpenChange, children }: {
   open: boolean,
   onOpenChange: (open: boolean) => void,
