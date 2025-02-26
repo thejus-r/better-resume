@@ -8,6 +8,7 @@ import { v6 as uuid } from "uuid"
 
 import { workExperienceSchema, type TWorkExperienceSchema } from "../../schemas/workExperienceSchema"
 import { type TWorkExperience } from "../../types/WorkExperience";
+import { convertDateToString } from "../../utils/dateUtils";
 
 type TWorkDetailsFormProps = {
   workExperience?: TWorkExperience
@@ -15,7 +16,7 @@ type TWorkDetailsFormProps = {
 }
 
 /**
- * Form element for Work Experience Details
+ * Work Details Form element accepts two arguments. The validation and state manangement is managed within.
  * @param workExperience Optional parameter, if workExperience is not passed to the component, it adds to the Work Experience List.
  * @param afterSave Required, function that can be called once the create/update process is done, Here its usually used to close the modal.
  */
@@ -26,9 +27,9 @@ const WorkDetailsForm = ({ workExperience, afterSave }: TWorkDetailsFormProps) =
   let defautValues: TWorkExperienceSchema = {
     companyName: "",
     currentCompany: false,
-    from: "2025-01",
+    from: convertDateToString(new Date()),
     role: "",
-    to: "2025-01"
+    to: convertDateToString(new Date())
   }
   if (workExperience != undefined) {
     defautValues = workExperienceSchema.parse(workExperience)

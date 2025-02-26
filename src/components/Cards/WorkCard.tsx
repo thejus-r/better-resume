@@ -4,6 +4,7 @@ import { useWorkExperienceStore } from "../../store/workStore";
 import { useState } from "react";
 import { WorkDetailsForm } from "@components/Forms/WorkDetailsForm";
 import { TWorkExperience } from "../../types/WorkExperience";
+import { convertDateToString } from "../../utils/dateUtils";
 
 type WorkCardPropsType = {
   workExperience: TWorkExperience
@@ -39,6 +40,8 @@ const WorkCard = ({ workExperience }: WorkCardPropsType) => {
             </p>
           )}
         </div>
+
+        <p> {convertDateToString(new Date())} </p>
       </div>
       <div className="flex gap-2 text-sm">
         <Modal.Root open={open} onOpenChange={setOpen}>

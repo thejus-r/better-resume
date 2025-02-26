@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Person, PlusCircle } from "@phosphor-icons/react";
+import { PlusCircle, SuitcaseSimple } from "@phosphor-icons/react";
 import { WorkCard } from "@components/Cards/WorkCard";
 import { useWorkExperienceStore } from "../../store/workStore";
 import { Button } from "@components/ui/Button";
@@ -20,7 +20,7 @@ export const WorkExperienceSection = () => {
     <div className="flex flex-col gap-2 p-2">
       <div className="flex h-12 items-center justify-center gap-2 rounded-2xl bg-gray-100 p-1.5">
         <div className="fill-w flex items-center justify-center rounded-xl bg-gray-800 fill-white p-2.5">
-          <Person className="fill-inherit" />
+          <SuitcaseSimple className="fill-inherit" />
         </div>
         <h3 className="w-full font-mono text-sm uppercase text-gray-800">
           Work Experience

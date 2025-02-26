@@ -19,7 +19,6 @@ const workExperienceSchema = z.discriminatedUnion("currentCompany", [
     role: z.string().trim().min(3),
     from: z.string(),
     to: z.string()
-
   })
 ])
 
