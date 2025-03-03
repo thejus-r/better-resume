@@ -1,29 +1,31 @@
 import { TrashSimple, PencilSimple } from "@phosphor-icons/react";
-import * as Modal from "@components/ui/Modal/Modal"
+import * as Modal from "@components/ui/Modal/Modal";
 import { useWorkExperienceStore } from "../../store/workStore";
 import { useState } from "react";
 import { WorkDetailsForm } from "@components/Forms/WorkDetailsForm";
 import { TWorkExperience } from "../../types/WorkExperience";
-import { convertDateToString } from "../../utils/dateUtils";
+import { PreviewRichText } from "@components/ui/RichTextEditor/Previewer";
 
 type WorkCardPropsType = {
-  workExperience: TWorkExperience
-}
+  workExperience: TWorkExperience;
+};
 
 const WorkCard = ({ workExperience }: WorkCardPropsType) => {
-
-  const [open, setOpen] = useState(false)
-  const { currentCompany, role, companyName, from, id } = workExperience;
-  const deleteWorkExperience = useWorkExperienceStore((state) => state.deleteExperience)
+  const [open, setOpen] = useState(false);
+  const { currentCompany, role, companyName, from, id, description } =
+    workExperience;
+  const deleteWorkExperience = useWorkExperienceStore(
+    (state) => state.deleteExperience,
+  );
 
   // For form to close the modal after action
   function afterSave() {
-    setOpen(false)
+    setOpen(false);
   }
 
   const handleDelete = () => {
-    deleteWorkExperience(id)
-  }
+    deleteWorkExperience(id);
+  };
 
   return (
     <div className="flex gap-2 p-2.5">
@@ -40,8 +42,9 @@ const WorkCard = ({ workExperience }: WorkCardPropsType) => {
             </p>
           )}
         </div>
-
-        <p> {convertDateToString(new Date())} </p>
+        <div className="mt-2 text-pretty">
+          <PreviewRichText htmlString={description ? description : ""} />
+        </div>
       </div>
       <div className="flex gap-2 text-sm">
         <Modal.Root open={open} onOpenChange={setOpen}>
@@ -49,14 +52,17 @@ const WorkCard = ({ workExperience }: WorkCardPropsType) => {
             <PencilSimple size={20} />
           </Modal.Trigger>
           <Modal.Content title="Edit Details">
-            <WorkDetailsForm workExperience={workExperience} afterSave={afterSave} />
+            <WorkDetailsForm
+              workExperience={workExperience}
+              afterSave={afterSave}
+            />
           </Modal.Content>
         </Modal.Root>
         <button onClick={handleDelete}>
           <TrashSimple size={20} className="fill-red-500" />
         </button>
-      </div >
-    </div >
+      </div>
+    </div>
   );
 };
 

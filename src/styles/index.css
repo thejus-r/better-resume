@@ -23,3 +23,45 @@
   font-display: swap;
   font-style: normal;
 }
+
+.PreviewProse  {
+  font-size: 14px;
+}
+
+.PreviewProse > p {
+  margin-bottom: 12px;
+  text-wrap: "pretty";
+}
+.PreviewProse > p:last-child {
+  margin-bottom: 0px;
+  text-wrap: "pretty";
+}
+
+
+.ProseMirror {
+  height: 100%;
+  width: 100%;
+}
+
+.ProseMirror > p {
+  margin-bottom: 6px;
+}
+
+.ProseMirror > p:last-child {
+  margin-bottom: 0px;
+}
+
+.ProseMirror:focus {
+  border: none;
+  outline: none;
+}
+
+
+
+.no-scrollbar::-webkit-scrollbar {
+ display: none; 
+}
+.no-scrollbar {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}

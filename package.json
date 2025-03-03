@@ -22,6 +22,8 @@
     "@radix-ui/react-visually-hidden": "^1.1.1",
     "@react-pdf/renderer": "^4.1.6",
     "@tailwindcss/vite": "^4.0.8",
+    "@tiptap/react": "^2.11.5",
+    "@tiptap/starter-kit": "^2.11.5",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "comlink": "^4.4.2",

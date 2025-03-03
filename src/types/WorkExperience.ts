@@ -4,6 +4,7 @@ type TWorkExperience = {
     companyName: string
     currentCompany: true,
     from: string
+    description?: string
 } | {
     id: string,
     role: string,
@@ -11,6 +12,7 @@ type TWorkExperience = {
     currentCompany: false
     from: string
     to: string
+    description?: string
 }
 
 export type { TWorkExperience }

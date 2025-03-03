@@ -18,6 +18,8 @@ import {
 import { type TWorkExperience } from "../../types/WorkExperience";
 import { convertDateToString } from "../../utils/dateUtils";
 import { Switch } from "@components/ui/Switch";
+import { TextEditor, TextEditorRefType } from "@components/ui/RichTextEditor";
+import { useRef, useState } from "react";
 
 type TWorkDetailsFormProps = {
   workExperience?: TWorkExperience;
@@ -38,6 +40,12 @@ const WorkDetailsForm = ({
     (state) => state.updateExperience,
   );
 
+  const [richText, setRichText] = useState(
+    workExperience?.description ? workExperience.description : "",
+  );
+
+  const textEditorRef = useRef<TextEditorRefType>(null);
+
   let defautValues: TWorkExperienceSchema = {
     companyName: "",
     currentCompany: false,
@@ -45,6 +53,7 @@ const WorkDetailsForm = ({
     role: "",
     to: convertDateToString(new Date()),
   };
+
   if (workExperience != undefined) {
     defautValues = workExperienceSchema.parse(workExperience);
   }
@@ -70,12 +79,25 @@ const WorkDetailsForm = ({
   const fromMonth = useWatch({ control, name: "from" });
 
   const onSubmit: SubmitHandler<TWorkExperienceSchema> = (data) => {
-    console.log(data);
+    if (textEditorRef.current != undefined) {
+      setRichText(textEditorRef.current.refreshContent());
+    }
+
+    const discription = textEditorRef.current?.refreshContent();
+
     if (workExperience != undefined) {
-      const updatedWorkExperience = { id: workExperience.id, ...data };
+      const updatedWorkExperience = {
+        id: workExperience.id,
+        description: discription,
+        ...data,
+      };
       updateExperience(updatedWorkExperience);
     } else {
-      const newWorkExperience = { id: uuid(), ...data };
+      const newWorkExperience = {
+        id: uuid(),
+        description: discription,
+        ...data,
+      };
       addExperience(newWorkExperience);
     }
     afterSave();
@@ -125,6 +147,10 @@ const WorkDetailsForm = ({
           <InputField.Error>{fullErrors.to?.message}</InputField.Error>
         </InputField.Root>
       </div>
+      <InputField.Root>
+        <InputField.Label>Description</InputField.Label>
+        <TextEditor richText={richText} ref={textEditorRef} />
+      </InputField.Root>
       <div className="mt-4 flex w-full items-center justify-end gap-2">
         <Modal.Close asChild>
           <Button intent={"destructive"}>Cancel</Button>
