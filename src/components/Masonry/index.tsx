@@ -16,21 +16,6 @@ const cards = [
       <WorkExperienceSection />
     </MasonryCard>
   ),
-  () => (
-    <MasonryCard>
-      <SkillSection />
-    </MasonryCard>
-  ),
-  () => (
-    <MasonryCard>
-      <ContactSection />
-    </MasonryCard>
-  ),
-  () => (
-    <MasonryCard>
-      <ProjectsSection />
-    </MasonryCard>
-  ),
 ];
 
 // Creates the Layout using the above Array of () => React.ReactNode
@@ -42,7 +27,7 @@ const MasonryLayout = () => {
       config={{
         columns: [1, 2, 3],
         gap: [8, 12, 16],
-        media: [640, 768, 1024],
+        media: [640, 1080, 1080],
         useBalancedLayout: true,
       }}
       render={(Element, idx) => <Element key={idx} />}
