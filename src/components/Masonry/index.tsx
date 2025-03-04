@@ -1,4 +1,7 @@
+import { ContactSection } from "@components/Sections/Contact";
 import { PersonalSection } from "@components/Sections/Personal";
+import { ProjectsSection } from "@components/Sections/Projects";
+import { SkillSection } from "@components/Sections/Skills";
 import { WorkExperienceSection } from "@components/Sections/WorkExperience";
 import { Masonry } from "react-plock";
 
@@ -8,14 +11,26 @@ const cards = [
       <PersonalSection />
     </MasonryCard>
   ),
-  () =>(
+  () => (
     <MasonryCard>
-      <WorkExperienceSection/>
+      <WorkExperienceSection />
     </MasonryCard>
   ),
-  () => <MasonryCard>Item 3</MasonryCard>,
-  () => <MasonryCard>Item 4</MasonryCard>,
-  () => <MasonryCard>Item 5</MasonryCard>,
+  () => (
+    <MasonryCard>
+      <SkillSection />
+    </MasonryCard>
+  ),
+  () => (
+    <MasonryCard>
+      <ContactSection />
+    </MasonryCard>
+  ),
+  () => (
+    <MasonryCard>
+      <ProjectsSection />
+    </MasonryCard>
+  ),
 ];
 
 // Creates the Layout using the above Array of () => React.ReactNode
@@ -24,14 +39,12 @@ const MasonryLayout = () => {
     <Masonry
       className="w-full"
       items={cards}
-      config={
-        {
-          columns: [1, 2, 3],
-          gap: [8, 12, 16],
-          media: [640, 768, 1024],
-          useBalancedLayout: true,
-        }
-      }
+      config={{
+        columns: [1, 2, 3],
+        gap: [8, 12, 16],
+        media: [640, 768, 1024],
+        useBalancedLayout: true,
+      }}
       render={(Element, idx) => <Element key={idx} />}
     />
   );

@@ -15,7 +15,7 @@ import {
   workExperienceSchema,
   type TWorkExperienceSchema,
 } from "../../schemas/workExperienceSchema";
-import { type TWorkExperience } from "../../types/WorkExperience";
+import { type TWorkExperience } from "../../types/sections";
 import { convertDateToString } from "../../utils/dateUtils";
 import { Switch } from "@components/ui/Switch";
 import { TextEditor, TextEditorRefType } from "@components/ui/RichTextEditor";
