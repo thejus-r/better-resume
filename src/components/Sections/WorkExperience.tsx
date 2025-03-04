@@ -7,14 +7,15 @@ import { Modal } from "@components/ui/Modal/Modal";
 import { WorkDetailsForm } from "@components/Forms/WorkDetailsForm";
 
 export const WorkExperienceSection = () => {
-
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState(false);
 
   function afterSave() {
-    setOpen(false)
+    setOpen(false);
   }
 
-  const allWorkExperience = useWorkExperienceStore((state) => state.allExperience)
+  const allWorkExperience = useWorkExperienceStore(
+    (state) => state.allExperience,
+  );
 
   return (
     <div className="flex flex-col gap-2 p-2">
@@ -22,7 +23,7 @@ export const WorkExperienceSection = () => {
         <div className="fill-w flex items-center justify-center rounded-xl bg-gray-800 fill-white p-2.5">
           <SuitcaseSimple className="fill-inherit" />
         </div>
-        <h3 className="w-full font-mono text-sm uppercase text-gray-800">
+        <h3 className="w-full font-mono text-sm text-gray-800 uppercase">
           Work Experience
         </h3>
         <Modal.Root open={open} onOpenChange={setOpen}>
@@ -37,11 +38,13 @@ export const WorkExperienceSection = () => {
           </Modal.Content>
         </Modal.Root>
       </div>
-      <div className="flex flex-col gap-2">
-        {allWorkExperience.map((data, idx) => (
-          <WorkCard key={idx} workExperience={data} />
-        ))}
-      </div>
+      {allWorkExperience.length > 0 ? (
+        <div className="flex flex-col gap-2">
+          {allWorkExperience.map((data, idx) => (
+            <WorkCard key={idx} workExperience={data} />
+          ))}
+        </div>
+      ) : null}
     </div>
   );
 };

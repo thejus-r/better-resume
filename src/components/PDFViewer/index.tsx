@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useResumeStore } from "../../store/store";
+import { useResumeStore } from "../../store/globalStoree";
 import { PDF } from "@lib/PDF";
 import { usePDF } from "@react-pdf/renderer";
 import { PDFRenderer } from "@lib/renderHelper";

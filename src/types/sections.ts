@@ -15,4 +15,13 @@ type TWorkExperience = {
     description?: string
 }
 
-export type { TWorkExperience }
+type TPersonalDetails = {
+    name: string,
+    email: string,
+    phoneNumber: string,
+    place: string
+  }
+
+  type TSKills = string[]
+  
+export type { TWorkExperience, TPersonalDetails, TSKills }

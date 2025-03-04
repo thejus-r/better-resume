@@ -3,7 +3,7 @@ import * as Modal from "@components/ui/Modal/Modal";
 import { useWorkExperienceStore } from "../../store/workStore";
 import { useState } from "react";
 import { WorkDetailsForm } from "@components/Forms/WorkDetailsForm";
-import { TWorkExperience } from "../../types/WorkExperience";
+import { TWorkExperience } from "../../types/sections";
 import { PreviewRichText } from "@components/ui/RichTextEditor/Previewer";
 
 type WorkCardPropsType = {

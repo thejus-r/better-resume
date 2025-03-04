@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { z } from 'zod'
-import { TWorkExperience } from "../types/WorkExperience";
+import { TWorkExperience } from "../types/sections";
 
 // Zod Schema Definition and Type infer
 
