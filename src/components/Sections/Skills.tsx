@@ -1,5 +1,8 @@
 import { Button } from "@components/ui/Button";
+import { Chip } from "@components/ui/Chips";
 import { PencilSimple, Brain } from "@phosphor-icons/react";
+
+const skills = ["TypeScript", "JavaScript", "ReactJS", "GoLang", "Redux"]
 
 const SkillSection = () => {
   return (
@@ -17,6 +20,11 @@ const SkillSection = () => {
           </span>
           Add
         </Button>
+      </div>
+      <div className="flex gap-2 p-2 w-full flex-wrap">
+        {skills.map((data, idx) => (
+          <Chip onRemove={() => console.log("removed")} key={idx}>{data}</Chip>
+        ))}
       </div>
     </div>
   );

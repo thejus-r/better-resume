@@ -16,6 +16,21 @@ const cards = [
       <WorkExperienceSection />
     </MasonryCard>
   ),
+  () => (
+    <MasonryCard>
+      <ProjectsSection />
+    </MasonryCard>
+  ),
+  () => (
+    <MasonryCard>
+      <SkillSection />
+    </MasonryCard>
+  ),
+  () => (
+    <MasonryCard>
+      <ContactSection />
+    </MasonryCard>
+  ),
 ];
 
 // Creates the Layout using the above Array of () => React.ReactNode
