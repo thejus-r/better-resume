@@ -1,13 +1,15 @@
 
 import { X } from "@phosphor-icons/react"
 
-type ChipProps = {
+type ChipProps = | {
+  removable: false
   children: React.ReactNode
-} | {
-  removable: true
-  children: React.ReactNode
-  onRemove: () => void
 }
+  | {
+    children: React.ReactNode
+    removable: true
+    onRemove: () => void
+  }
 
 type ChipPropsAll = Extract<ChipProps, { removable: true }>
 

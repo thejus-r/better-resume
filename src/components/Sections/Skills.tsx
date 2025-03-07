@@ -1,13 +1,20 @@
 import { Button } from "@components/ui/Button";
-import { Chip } from "@components/ui/Chips";
+import { Chip } from "@components/ui/Chip";
 import { PencilSimple, Brain } from "@phosphor-icons/react";
-
-const skills = ["TypeScript", "JavaScript", "ReactJS", "GoLang", "Redux"]
+import { useState } from "react";
 
 const SkillSection = () => {
+
+  const [skills, setSkills] = useState(["TypeScript", "JavaScript", "ReactJS", "GoLang", "Redux"])
+
+  const handleRemove = (data: string) => {
+    const updatedSkills = skills.filter((e) => e != data)
+    setSkills(updatedSkills)
+  }
+
   return (
     <div className="flex flex-col gap-2 p-2">
-      <div className="flex h-12 items-center justify-center gap-2 rounded-2xl bg-gray-100 p-1.5">
+      <div className="flex h-12 iems-center justify-center gap-2 rounded-2xl bg-gray-100 p-1.5">
         <div className="fill-w flex items-center justify-center rounded-xl bg-gray-800 fill-white p-2.5">
           <Brain className="fill-inherit" />
         </div>
@@ -23,7 +30,7 @@ const SkillSection = () => {
       </div>
       <div className="flex gap-2 p-2 w-full flex-wrap">
         {skills.map((data, idx) => (
-          <Chip onRemove={() => console.log("removed")} key={idx}>{data}</Chip>
+          <Chip removable onRemove={() => handleRemove(data)} key={idx}>{data}</Chip>
         ))}
       </div>
     </div>
