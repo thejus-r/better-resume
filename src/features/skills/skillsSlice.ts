@@ -13,11 +13,22 @@ type SkillState = {
 const initialState: SkillState = {
   list: [],
 };
-
 export const skillsSlice = createSlice({
   name: "skills",
   initialState,
   reducers: {
+    addMultiple: (state, action: PayloadAction<Array<string>>) => {
+      const tempList = state.list.map((skill) => skill.name);
+      action.payload.map((newSkill) => {
+        if (!tempList.includes(newSkill)) {
+          const newSkillObj: Skill = {
+            id: uuid(),
+            name: newSkill,
+          };
+          state.list.push(newSkillObj);
+        }
+      });
+    },
     add: (state, action: PayloadAction<string>) => {
       const newSkill: Skill = {
         id: uuid(),
@@ -31,6 +42,6 @@ export const skillsSlice = createSlice({
   },
 });
 
-export const { add, remove } = skillsSlice.actions;
+export const { add, remove, addMultiple } = skillsSlice.actions;
 
 export default skillsSlice.reducer;

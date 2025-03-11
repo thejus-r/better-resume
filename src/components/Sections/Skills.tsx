@@ -1,13 +1,22 @@
 // for Logic
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import { add, remove } from "../../features/skills/skillsSlice";
+import { remove, addMultiple } from "../../features/skills/skillsSlice";
 
 // for UI
 import { Button } from "@components/ui/Button";
 import { PencilSimple, Brain } from "@phosphor-icons/react";
 import { Chip } from "@components/ui/Chip";
+import { useState } from "react";
+import { Modal } from "@components/ui/Modal/Modal";
+import { SkillsForm } from "@components/Forms/SkillsForm";
 
 const SkillSection = () => {
+  const [open, setOpen] = useState(false);
+
+  const afterSave = () => {
+    setOpen(false);
+  };
+
   const skillList = useAppSelector((state) => state.skills.list);
   const dispatch = useAppDispatch();
 
@@ -24,16 +33,19 @@ const SkillSection = () => {
         <h3 className="w-full font-mono text-sm text-gray-800 uppercase">
           Skills
         </h3>
-        <Button
-          btnType={"text"}
-          intent={"tertiary"}
-          onClick={() => dispatch(add("React"))}
-        >
-          <span>
-            <PencilSimple />
-          </span>
-          Add
-        </Button>
+        <Modal.Root open={open} onOpenChange={setOpen}>
+          <Modal.Trigger asChild>
+            <Button btnType={"text"} intent={"tertiary"}>
+              <span>
+                <PencilSimple />
+              </span>
+              Add
+            </Button>
+          </Modal.Trigger>
+          <Modal.Content title="Add your skills">
+            <SkillsForm afterSave={afterSave} />
+          </Modal.Content>
+        </Modal.Root>
       </div>
       <div className="flex w-full flex-wrap gap-2 p-2">
         {skillList.map(({ id, name }) => (
