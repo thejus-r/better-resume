@@ -11,6 +11,8 @@ type ChipProps = | {
     onRemove: () => void
   }
 
+// adsa
+
 type ChipPropsAll = Extract<ChipProps, { removable: true }>
 
 const Chip = ({ removable, onRemove, children }: ChipPropsAll) => {
