@@ -47,13 +47,15 @@ const SkillSection = () => {
           </Modal.Content>
         </Modal.Root>
       </div>
-      <div className="flex w-full flex-wrap gap-2 p-2">
-        {skillList.map(({ id, name }) => (
-          <Chip removable onRemove={() => handleRemove(id)} key={id}>
-            {name}
-          </Chip>
-        ))}
-      </div>
+      {skillList.length != 0 && (
+        <div className="flex w-full flex-wrap gap-2 p-2">
+          {skillList.map(({ id, name }) => (
+            <Chip removable onRemove={() => handleRemove(id)} key={id}>
+              {name}
+            </Chip>
+          ))}
+        </div>
+      )}
     </div>
   );
 };

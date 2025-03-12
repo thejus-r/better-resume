@@ -1,7 +1,7 @@
 function CSStingToArray(str: string): Array<string> {
   let arr: Array<string> = [];
   arr = str.split(",").map((each) => each.trim());
-  return arr;
+  return arr.filter((each) => each.length != 0);
 }
 function ArrayToCSString(arr: Array<string>): string {
   let str: string = "";
