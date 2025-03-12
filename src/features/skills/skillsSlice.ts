@@ -18,16 +18,14 @@ export const skillsSlice = createSlice({
   initialState,
   reducers: {
     addMultiple: (state, action: PayloadAction<Array<string>>) => {
-      const tempList = state.list.map((skill) => skill.name);
-      action.payload.map((newSkill) => {
-        if (!tempList.includes(newSkill)) {
-          const newSkillObj: Skill = {
-            id: uuid(),
-            name: newSkill,
-          };
-          state.list.push(newSkillObj);
-        }
-      });
+      const newList: Array<Skill> = [];
+      for (let i = 0; i < action.payload.length; i++) {
+        newList.push({
+          id: uuid(),
+          name: action.payload[i],
+        });
+      }
+      state.list = newList;
     },
     add: (state, action: PayloadAction<string>) => {
       const newSkill: Skill = {

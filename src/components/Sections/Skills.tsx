@@ -1,6 +1,6 @@
 // for Logic
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import { remove, addMultiple } from "../../features/skills/skillsSlice";
+import { remove } from "../../features/skills/skillsSlice";
 
 // for UI
 import { Button } from "@components/ui/Button";
@@ -39,7 +39,7 @@ const SkillSection = () => {
               <span>
                 <PencilSimple />
               </span>
-              Add
+              edit
             </Button>
           </Modal.Trigger>
           <Modal.Content title="Add your skills">
