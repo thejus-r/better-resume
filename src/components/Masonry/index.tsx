@@ -1,5 +1,5 @@
-import { ContactSection } from "@components/Sections/Contact";
 import { PersonalSection } from "@components/Sections/Personal";
+import { ProjectSection } from "@components/Sections/Project";
 import { SkillSection } from "@components/Sections/Skills";
 import { WorkExperienceSection } from "@components/Sections/WorkExperience";
 import { Masonry } from "react-plock";
@@ -17,12 +17,12 @@ const cards = [
   ),
   () => (
     <MasonryCard>
-      <SkillSection />
+      <ProjectSection />
     </MasonryCard>
   ),
   () => (
     <MasonryCard>
-      <ContactSection />
+      <SkillSection />
     </MasonryCard>
   ),
 ];

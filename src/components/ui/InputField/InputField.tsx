@@ -52,10 +52,15 @@ const inputVariants = cva(
         false: null,
         true: ["opacity-50", "cursor-not-allowed"],
       },
+      textArea: {
+        false: null,
+        true: ["h-24", "align-text-top"],
+      },
     },
     defaultVariants: {
       error: false,
       disable: false,
+      textArea: false,
     },
   },
 );
@@ -68,6 +73,26 @@ const Input = ({ ...props }: InputProps) => {
     <input
       disabled={disable}
       className={twMerge(inputVariants({ disable: disable, error: error }))}
+      {...props}
+    />
+  );
+};
+
+// InputField.TextArea
+type TextAreaProps = Omit<
+  React.TextareaHTMLAttributes<HTMLTextAreaElement>,
+  "disable"
+> &
+  VariantProps<typeof inputVariants> & {};
+const TextArea = ({ ...props }: TextAreaProps) => {
+  const { disable, error } = useContext(InputFieldContext);
+  return (
+    <textarea
+      rows={4}
+      disabled={disable}
+      className={twMerge(
+        inputVariants({ disable: disable, error: error, textArea: true }),
+      )}
       {...props}
     />
   );
@@ -131,7 +156,8 @@ const Error = ({ ...props }: ErrorProps) => {
 const Root = InputField;
 InputField.Root = Root;
 InputField.Input = Input;
+InputField.TextArea = TextArea;
 InputField.Label = Label;
 InputField.Error = Error;
 
-export { Root, InputField, Input, Label, Error };
+export { Root, InputField, Input, Label, Error, TextArea };
