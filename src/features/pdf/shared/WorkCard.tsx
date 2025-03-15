@@ -3,7 +3,6 @@ import { TWorkExperience } from "../../../types/sections";
 
 const workStyles = StyleSheet.create({
   wrapper: {
-    marginTop: 8,
     marginBottom: 8,
     paddingRight: 12,
     paddingLeft: 12,

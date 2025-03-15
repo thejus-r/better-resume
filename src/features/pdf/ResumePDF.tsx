@@ -10,7 +10,10 @@ import { WorkCard } from "./shared/WorkCard";
 import { SkillsView } from "./shared/SkillsView";
 import { ProjectView } from "./shared/ProjectView";
 
+import type { ResumeData } from "./FloatBar";
+
 import mockData from "./mockData";
+import SectionHeader from "./shared/SectionHeader";
 
 // Create styles
 const styles = StyleSheet.create({
@@ -54,47 +57,54 @@ const styles = StyleSheet.create({
 });
 
 // Create Resume Document Component
-const ResumeDocument = () => (
-  <Document>
-    <Page size="A4" style={styles.page}>
-      <View style={styles.section}>
-        <Text style={styles.personName}>Thejus Rajendran</Text>
-        <Text style={styles.role}>Full Stack Developer</Text>
-        <View style={styles.headerTags}>
-          <Text>Email: thejusr1999@gmail.com</Text>
-          <Text>Phone: 7994787149</Text>
-          <Text>Place: Bangalore, Karnataka</Text>
-        </View>
-      </View>
-      <View style={styles.section}>
-        <View style={styles.sectionHeader}>
-          <Text>Work Experience</Text>
-        </View>
-        {mockData.workExperience.map((work) => (
-          <WorkCard key={work.id} work={work} />
-        ))}
-      </View>
-      <View style={styles.section}>
-        <View style={styles.sectionHeader}>
-          <Text>Projects</Text>
-        </View>
-        {mockData.projects.map((project) => (
-          <ProjectView key={project.id} {...project} />
-        ))}
-      </View>
-      <View style={styles.section}>
-        <View style={styles.sectionHeader}>
-          <Text>Skills</Text>
-        </View>
-        <SkillsView skills={mockData.skills} />
-      </View>
-    </Page>
-  </Document>
-);
+//
 
-const PDF = () => (
-  <PDFViewer className="h-screen w-full">
-    <ResumeDocument />
+type ResumeDocumentProps = {
+  resumeData: ResumeData;
+};
+const ResumeDocument = ({ resumeData }: ResumeDocumentProps) => {
+  const { personal, work } = resumeData;
+  return (
+    <Document>
+      <Page size="A4" style={styles.page}>
+        <View style={styles.section}>
+          <Text style={styles.personName}>{personal.name}</Text>
+          <Text style={styles.role}>{personal.role}</Text>
+          <View style={styles.headerTags}>
+            <Text>Email: {personal.email}</Text>
+            <Text>Phone: {personal.phoneNumber}</Text>
+            <Text>Place: {personal.place}</Text>
+          </View>
+        </View>
+        <View style={styles.section}>
+          <SectionHeader sectionName="Work Experience" />
+          {work.map((el) => (
+            <WorkCard key={el.id} work={el} />
+          ))}
+        </View>
+        <View style={styles.section}>
+          <SectionHeader sectionName="Projects" />
+          {mockData.projects.map((project) => (
+            <ProjectView key={project.id} {...project} />
+          ))}
+        </View>
+        <View style={styles.section}>
+          <View style={styles.sectionHeader}>
+            <Text>Skills</Text>
+          </View>
+          <SkillsView skills={mockData.skills} />
+        </View>
+      </Page>
+    </Document>
+  );
+};
+
+type TPDFProps = {
+  resumeData: ResumeData;
+};
+const PDF = ({ resumeData }: TPDFProps) => (
+  <PDFViewer className="absolute top-0 left-0 h-screen w-1/2 -translate-x-1/2 -translate-y-1/2">
+    <ResumeDocument resumeData={resumeData} />
   </PDFViewer>
 );
 

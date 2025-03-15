@@ -1,6 +1,6 @@
 import personalReducer from "@features/personal/slice";
-import projectsReducer from "@features/project/projectSlice";
-import skillsReducer from "@features/skills/skillsSlice";
+import projectsReducer from "@features/project/slice";
+import skillsReducer from "@features/skills/slice";
 import workExperienceSlice from "@features/work/slice";
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { persistReducer, persistStore } from "redux-persist";
