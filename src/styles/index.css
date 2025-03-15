@@ -24,19 +24,18 @@
   font-style: normal;
 }
 
-.PreviewProse  {
+.PreviewProse {
   font-size: 14px;
 }
 
 .PreviewProse > p {
-  margin-bottom: 12px;
+  margin-bottom: 6px;
   text-wrap: "pretty";
 }
 .PreviewProse > p:last-child {
   margin-bottom: 0px;
   text-wrap: "pretty";
 }
-
 
 .ProseMirror {
   height: 100%;
@@ -56,12 +55,10 @@
   outline: none;
 }
 
-
-
 .no-scrollbar::-webkit-scrollbar {
- display: none; 
+  display: none;
 }
 .no-scrollbar {
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 }

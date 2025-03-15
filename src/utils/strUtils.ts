@@ -12,4 +12,16 @@ function ArrayToCSString(arr: Array<string>): string {
   return str;
 }
 
-export { CSStingToArray, ArrayToCSString };
+function ExtractParagraphs(htmlString: string): string[] {
+  const regex = /<p>(.*?)<\/p>/g;
+  const matches = [];
+  let match;
+
+  while ((match = regex.exec(htmlString)) !== null) {
+    matches.push(match[1]);
+  }
+
+  return matches;
+}
+
+export { CSStingToArray, ArrayToCSString, ExtractParagraphs };
