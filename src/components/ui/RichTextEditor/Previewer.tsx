@@ -1,7 +1,7 @@
 const PreviewRichText = ({ htmlString }: { htmlString: string }) => {
   return (
     <div
-      className="PreviewProse"
+      className="PreviewProse text-gray-500"
       dangerouslySetInnerHTML={{
         __html: htmlString,
       }}

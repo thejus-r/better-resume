@@ -12,8 +12,8 @@ import { ProjectView } from "./shared/ProjectView";
 
 import type { ResumeData } from "./FloatBar";
 
-import mockData from "./mockData";
 import SectionHeader from "./shared/SectionHeader";
+import { ArrayToCSString } from "../../utils/strUtils";
 
 // Create styles
 const styles = StyleSheet.create({
@@ -63,7 +63,9 @@ type ResumeDocumentProps = {
   resumeData: ResumeData;
 };
 const ResumeDocument = ({ resumeData }: ResumeDocumentProps) => {
-  const { personal, work } = resumeData;
+  const { personal, work, projects, skills } = resumeData;
+
+  const skillString = ArrayToCSString(skills.map((skill) => skill.name));
   return (
     <Document>
       <Page size="A4" style={styles.page}>
@@ -84,15 +86,13 @@ const ResumeDocument = ({ resumeData }: ResumeDocumentProps) => {
         </View>
         <View style={styles.section}>
           <SectionHeader sectionName="Projects" />
-          {mockData.projects.map((project) => (
+          {projects.map((project) => (
             <ProjectView key={project.id} {...project} />
           ))}
         </View>
         <View style={styles.section}>
-          <View style={styles.sectionHeader}>
-            <Text>Skills</Text>
-          </View>
-          <SkillsView skills={mockData.skills} />
+          <SectionHeader sectionName="Skills" />
+          <SkillsView skills={skillString} />
         </View>
       </Page>
     </Document>
@@ -108,4 +108,4 @@ const PDF = ({ resumeData }: TPDFProps) => (
   </PDFViewer>
 );
 
-export { PDF };
+export { PDF, ResumeDocument };

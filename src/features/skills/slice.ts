@@ -1,10 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { v6 as uuid } from "uuid";
-
-type Skill = {
-  id: string;
-  name: string;
-};
+import { Skill } from "./type";
 
 type SkillState = {
   list: Array<Skill>;

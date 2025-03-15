@@ -3,7 +3,6 @@ import { View, Text, StyleSheet } from "@react-pdf/renderer";
 const styles = StyleSheet.create({
   wrapper: {
     paddingLeft: 12,
-    marginTop: 4,
     fontSize: 12,
   },
 });

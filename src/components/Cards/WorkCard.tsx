@@ -6,6 +6,7 @@ import { TWorkExperience } from "@features/work/types";
 import { PreviewRichText } from "@components/ui/RichTextEditor/Previewer";
 import { useAppDispatch } from "../../store/hooks";
 import { remove } from "@features/work/slice";
+import { format } from "date-fns";
 
 type WorkCardPropsType = {
   workExperience: TWorkExperience;
@@ -34,11 +35,12 @@ const WorkCard = ({ workExperience }: WorkCardPropsType) => {
           <p className="text-base">{role}</p>
           {currentCompany ? (
             <p className="text-sm text-gray-400">
-              in {companyName} since {from}
+              in {companyName} since {format(from, "MMM yyyy")}
             </p>
           ) : (
             <p className="text-sm text-gray-400">
-              in {companyName} from {from} to {workExperience.to}
+              in {companyName} from {format(from, "MMM yyyy")} to{" "}
+              {format(workExperience.to, "MMM yyyy")}
             </p>
           )}
         </div>
