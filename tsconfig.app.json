@@ -6,15 +6,15 @@
     "lib": ["ES2020", "DOM", "DOM.Iterable"],
     "module": "ESNext",
     "skipLibCheck": true,
-    
+
     /* Bundler mode */
     "paths": {
-      "@components/*":["./src/components/*"],
-      "@styles/*":["./src/styles/*"],
-      "@configs/*":["./src/configs/*"],
-      "@lib/*":["./src/lib/*"],
+      "@components/*": ["./src/components/*"],
+      "@styles/*": ["./src/styles/*"],
+      "@configs/*": ["./src/configs/*"],
+      "@lib/*": ["./src/lib/*"],
+      "@features/*": ["./src/features/*"]
     },
-
 
     /* Bundler mode */
     "moduleResolution": "bundler",

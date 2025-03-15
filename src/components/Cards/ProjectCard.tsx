@@ -1,10 +1,10 @@
-import { ProjectForm } from "@components/Forms/ProjectsForm";
+import { ProjectForm } from "@features/project/Form";
 import { Modal } from "@components/ui/Modal/Modal";
 import { PencilSimple, TrashSimple } from "@phosphor-icons/react";
 import { useState } from "react";
-import { Project } from "../../features/project/projectSlice";
-import { remove } from "../../features/project/projectSlice";
+import { remove } from "@features/project/slice";
 import { useAppDispatch } from "../../store/hooks";
+import type { Project } from "@features/project/type";
 
 type TProjectProps = {
   project: Project;

@@ -38,6 +38,7 @@
     "react-plock": "^3.4.0",
     "react-redux": "^9.2.0",
     "react-use": "^17.6.0",
+    "redux-persist": "^6.0.0",
     "tailwind-merge": "^3.0.2",
     "tailwindcss": "^4.0.8",
     "uuid": "^11.1.0",
