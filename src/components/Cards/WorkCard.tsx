@@ -1,10 +1,11 @@
 import { TrashSimple, PencilSimple } from "@phosphor-icons/react";
 import * as Modal from "@components/ui/Modal/Modal";
-import { useWorkExperienceStore } from "../../store/workStore";
 import { useState } from "react";
-import { WorkDetailsForm } from "@components/Forms/WorkDetailsForm";
-import { TWorkExperience } from "../../types/sections";
+import { WorkDetailsForm } from "@features/work/Form";
+import { TWorkExperience } from "@features/work/types";
 import { PreviewRichText } from "@components/ui/RichTextEditor/Previewer";
+import { useAppDispatch } from "../../store/hooks";
+import { remove } from "@features/work/slice";
 
 type WorkCardPropsType = {
   workExperience: TWorkExperience;
@@ -14,17 +15,16 @@ const WorkCard = ({ workExperience }: WorkCardPropsType) => {
   const [open, setOpen] = useState(false);
   const { currentCompany, role, companyName, from, id, description } =
     workExperience;
-  const deleteWorkExperience = useWorkExperienceStore(
-    (state) => state.deleteExperience,
-  );
 
   // For form to close the modal after action
   function afterSave() {
     setOpen(false);
   }
 
+  const dispatch = useAppDispatch();
+
   const handleDelete = () => {
-    deleteWorkExperience(id);
+    dispatch(remove(id));
   };
 
   return (

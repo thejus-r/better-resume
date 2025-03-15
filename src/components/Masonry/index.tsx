@@ -1,7 +1,7 @@
-import { PersonalSection } from "../../features/personal";
 import { ProjectSection } from "@components/Sections/Project";
 import { SkillSection } from "@components/Sections/Skills";
-import { WorkExperienceSection } from "@components/Sections/WorkExperience";
+import { PersonalSection } from "@features/personal";
+import { WorkExperienceSection } from "@features/work";
 import { Masonry } from "react-plock";
 
 const cards = [

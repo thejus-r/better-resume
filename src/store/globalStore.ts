@@ -1,12 +1,14 @@
+import personalReducer from "@features/personal/slice";
+import projectsReducer from "@features/project/projectSlice";
+import skillsReducer from "@features/skills/skillsSlice";
+import workExperienceSlice from "@features/work/slice";
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { persistReducer, persistStore } from "redux-persist";
 import storage from "redux-persist/lib/storage";
-import skillsReducer from "../features/skills/skillsSlice";
-import projectsReducer from "../features/project/projectSlice";
-import personalReducer from "../features/personal/slice";
 
 const rootReducer = combineReducers({
   personal: personalReducer,
+  workExperience: workExperienceSlice,
   projects: projectsReducer,
   skills: skillsReducer,
 });
