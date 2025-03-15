@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet } from "@react-pdf/renderer";
-import { Project } from "../../project/projectSlice";
+import { type Project } from "@features/project/type";
 
 const styles = StyleSheet.create({
   wrapper: {
