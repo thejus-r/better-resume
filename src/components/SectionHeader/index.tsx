@@ -1,59 +1,31 @@
-import type { Icon as IconType } from "@phosphor-icons/react";
+const Header = () => {
+  return <div>This will be section header</div>;
+};
 
-interface SectionHeaderProps
-  extends React.DetailedHTMLProps<
-    React.HTMLAttributes<HTMLDivElement>,
-    HTMLDivElement
-  > { }
+const Icon = () => {
+  return <div>icon</div>;
+};
 
-const Header = ({ ...props }: SectionHeaderProps) => {
+type TitleProps = {
+  required?: boolean;
+};
+const Title = ({ required }: TitleProps) => {
   return (
-    <div
-      className="flex h-12 items-center gap-2 rounded-2xl bg-gray-100 px-1"
-      {...props}
-    />
+    <h3>
+      Personal Details
+      {required && <span className="text-red-500">*</span>}
+    </h3>
   );
 };
 
-interface ContentProps
-  extends React.DetailedHTMLProps<
-    React.HTMLAttributes<HTMLHeadingElement>,
-    HTMLHeadingElement
-  > { }
-
-const Content = ({ ...props }: ContentProps) => {
-  return (
-    <h3 className="font-mono text-xs uppercase text-gray-800 w-full" {...props} />
-  );
+const Action = () => {
+  return <div></div>;
 };
-
-interface IconProps extends React.HTMLAttributes<HTMLDivElement> {
-  icon: IconType;
-}
-const Icon = ({ icon, ...props }: IconProps) => {
-  const IconSVG = icon
-  return (
-    <div className="rounded-2xl bg-gray-900 fill-white p-2.5" {...props}>
-      <IconSVG fill="white" size={20} />
-    </div>
-  );
-};
-
-
-interface ControlProps
-  extends React.DetailedHTMLProps<
-    React.HTMLAttributes<HTMLHeadingElement>,
-    HTMLHeadingElement
-  > { }
-
-const Control = ({ ...props }: ControlProps) => {
-  return <div {...props} />
-}
 
 const Root = Header;
 Header.Root = Root;
-Header.Content = Content;
 Header.Icon = Icon;
-Header.Control = Control;
+Header.Title = Title;
+Header.Action = Action;
 
-export { Root, Header, Content, Icon, Control };
+export { Root, Header, Icon, Title, Action };

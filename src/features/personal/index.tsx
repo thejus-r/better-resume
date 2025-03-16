@@ -30,6 +30,7 @@ export const PersonalSection = () => {
         </div>
         <h3 className="w-full font-mono text-sm text-gray-800 uppercase">
           Personal Details
+          <span className="text-red-500">*</span>
         </h3>
         <Modal.Root open={open} onOpenChange={setOpen}>
           <Modal.Trigger asChild>
