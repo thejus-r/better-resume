@@ -37,7 +37,7 @@ const cards = [
 const MasonryLayout = () => {
   return (
     <Masonry
-      className="w-full h-fit flex-1 p-2 md:px-8 lg:px-16 xl:px-24"
+      className="w-full p-2 md:px-8 lg:px-16 xl:px-24"
       items={cards}
       config={{
         columns: [1, 2, 3],

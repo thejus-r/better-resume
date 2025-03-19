@@ -1,16 +1,9 @@
-import { Button } from "@components/ui/Button";
-import { Link, PlusCircle } from "@phosphor-icons/react";
+import { Link } from "@phosphor-icons/react"
 const SocialSection = () => {
   return (
     <Section>
       <Header
-        action=<Button btnType={"text"} intent={"tertiary"}>
-          <span>
-            <PlusCircle />
-          </span>
-          add
-        </Button>
-        icon=<Link className="fill-inherit" />
+        action=<p className="w-40 text-sm text-gray-400">coming soon!</p> icon=<Link className="fill-inherit" />
         name="Social Links"
       />
     </Section>
