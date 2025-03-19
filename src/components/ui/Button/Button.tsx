@@ -39,9 +39,9 @@ type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> &
     children: React.ReactNode;
   };
 
-const Button = ({ children, intent, size, btnType, ...props }: ButtonProps) => {
+const Button = ({ children, intent, size, className, btnType, ...props }: ButtonProps) => {
   return (
-    <button {...props} className={twMerge(buttonVariants({ intent, size, btnType }))}>
+    <button {...props} className={twMerge(buttonVariants({ intent, size, btnType, className }))}>
       {children}
     </button>
   );
