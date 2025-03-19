@@ -3,6 +3,7 @@ import { SkillSection } from "@features/skills";
 import { PersonalSection } from "@features/personal";
 import { WorkExperienceSection } from "@features/work";
 import { Masonry } from "react-plock";
+import { SocialSection } from "@features/social";
 
 const cards = [
   () => (
@@ -25,13 +26,18 @@ const cards = [
       <SkillSection />
     </MasonryCard>
   ),
+  () => (
+    <MasonryCard>
+      <SocialSection />
+    </MasonryCard>
+  ),
 ];
 
 // Creates the Layout using the above Array of () => React.ReactNode
 const MasonryLayout = () => {
   return (
     <Masonry
-      className="w-full"
+      className="w-full h-fit flex-1 p-2 md:px-8 lg:px-16 xl:px-24"
       items={cards}
       config={{
         columns: [1, 2, 3],

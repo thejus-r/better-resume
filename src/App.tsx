@@ -1,10 +1,10 @@
 import { MasonryLayout } from "@components/Masonry";
-import { FloatBar } from "./features/pdf/FloatBar";
+import { NavBar } from "@components/NavBar";
 function App() {
   return (
-    <div className="flex w-screen items-center justify-center p-4 md:px-24">
+    <div className="flex h-screen flex-col w-screen gap-4">
+      <NavBar />
       <MasonryLayout />
-      <FloatBar />
     </div>
   );
 }

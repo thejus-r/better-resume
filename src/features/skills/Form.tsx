@@ -40,19 +40,21 @@ const SkillsForm = ({ afterSave }: TSkillFormProps) => {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <InputField.Root>
-        <InputField.Label>Skills</InputField.Label>
-        <InputField.Input
-          placeholder="Problem Solving, Critical Thinking"
-          {...register("skillsString")}
-        />
-      </InputField.Root>
+    <form onSubmit={handleSubmit(onSubmit)} className="h-full flex flex-col">
+      <div className="flex flex-col flex-1">
+        <InputField.Root>
+          <InputField.Label>Skills</InputField.Label>
+          <InputField.Input
+            placeholder="Problem Solving, Critical Thinking"
+            {...register("skillsString")}
+          />
+        </InputField.Root>
+      </div>
       <div className="mt-4 flex w-full items-center justify-end gap-2">
-        <Modal.Close asChild>
-          <Button intent={"destructive"}>Cancel</Button>
+        <Modal.Close asChild className="hidden md:block">
+          <Button className="hidden md:block" intent={"destructive"}>Cancel</Button>
         </Modal.Close>
-        <Button type="submit">Update</Button>
+        <Button className="w-full md:w-fit h-12 md:h-auto" type="submit">Save</Button>
       </div>
     </form>
   );

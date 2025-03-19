@@ -1,3 +1,4 @@
+import { X } from "@phosphor-icons/react";
 import * as RadixDialog from "@radix-ui/react-dialog";
 import { AnimatePresence, motion, type Variants } from "motion/react";
 import { createContext, useContext } from "react";
@@ -69,11 +70,20 @@ const Content = ({
             <RadixDialog.Overlay className="fixed inset-0 top-0 left-0 bg-black/25" />
             <AnimatePresence>
               <motion.div variants={modalContentVariants}>
-                <RadixDialog.Content className="fixed bottom-0 left-1/2 w-full -translate-x-1/2 overflow-y-auto rounded-t-2xl bg-white md:bottom-1/2 md:w-8/12 md:translate-y-1/2 md:rounded-b-2xl xl:w-5/12">
-                  <RadixDialog.Title className="w-full bg-gray-50 p-4 text-lg">
-                    {title}
+                <RadixDialog.Content className="fixed bottom-0 flex flex-col h-full flex-1 md:h-fit left-1/2 w-full -translate-x-1/2 overflow-y-auto rounded-t-2xl bg-white md:bottom-1/2 md:w-8/12 md:translate-y-1/2 md:rounded-b-2xl xl:w-5/12">
+                  <RadixDialog.Title className="bg-gray-50 p-4 text-lg">
+                    <div className="flex items-center justify-between">
+                      {title}
+                      <Close>
+
+                        <span className="md:hidden">
+                          <X />
+                        </span>
+
+                      </Close>
+                    </div>
                   </RadixDialog.Title>
-                  <div className="p-4">{children}</div>
+                  <div className="p-4 flex-1" >{children}</div>
                 </RadixDialog.Content>
               </motion.div>
             </AnimatePresence>
