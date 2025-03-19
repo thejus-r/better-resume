@@ -51,7 +51,7 @@ const NavBar = () => {
 
         <div className="flex gap-1 items-center justify-center">
           <PencilSimple />
-          <input rel={nameRef} className="w-full" type="text" defaultValue={"Untitled"} />
+          <input ref={nameRef} className="w-full" type="text" defaultValue={"Untitled"} />
         </div>
       </div>
       <div>
